@@ -20,7 +20,7 @@ class SplashScreen : AppCompatActivity() {
 
         // Метод для задержки сплэша
         Handler().postDelayed({
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, LoginForm::class.java)
             startActivity(intent)
             finish()
         }, 3000) // 3000 в миллисекундах
