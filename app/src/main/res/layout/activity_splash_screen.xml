@@ -12,13 +12,29 @@
     <View
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@android:color/holo_blue_dark"
+        android:background="@drawable/gradient_background"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="0dp" />
 
+
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/vvsu_logo"
+        android:layout_width="0dp"
+        android:layout_height="256dp"
+        android:contentDescription="@string/mypass"
+        android:scaleType="fitStart"
+        android:src="@drawable/mypass_text"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.054"
+        tools:ignore="DuplicateIds,InvalidId,MissingConstraints" />
+
+    <ImageView
+        android:id="@+id/vvsu_logo"
         android:layout_width="127dp"
         android:layout_height="293dp"
         android:contentDescription="@string/vvsu_logo"
@@ -28,34 +44,8 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints" />
+        app:layout_constraintVertical_bias="0.541"
+        tools:ignore="DuplicateIds,MissingConstraints" />
 
-    <TextView
-        android:id="@+id/MyPass_text_on_SS"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-condensed-light"
-        android:includeFontPadding="false"
-        android:text="@string/mypass"
-        android:textColor="#FFFFFF"
-        android:textSize="84sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.145" />
-
-    <TextView
-        android:id="@+id/slogan_on_SS"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-condensed-light"
-        android:includeFontPadding="false"
-        android:text="Ваш пропуск в смартфоне!"
-        android:textColor="#FFFFFF"
-        android:textSize="20sp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/MyPass_text_on_SS" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
