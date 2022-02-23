@@ -19,7 +19,7 @@
 
 
     <ImageView
-        android:id="@+id/vvsu_logo"
+        android:id="@+id/mypass_logo"
         android:layout_width="0dp"
         android:layout_height="256dp"
         android:contentDescription="@string/mypass"
@@ -30,22 +30,8 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.054"
+        app:layout_constraintVertical_bias="0.500"
         tools:ignore="DuplicateIds,InvalidId,MissingConstraints" />
-
-    <ImageView
-        android:id="@+id/vvsu_logo"
-        android:layout_width="127dp"
-        android:layout_height="293dp"
-        android:contentDescription="@string/vvsu_logo"
-        android:scaleType="centerInside"
-        android:src="@drawable/vvsu_logo"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.541"
-        tools:ignore="DuplicateIds,MissingConstraints" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

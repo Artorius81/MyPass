@@ -5,16 +5,24 @@
       <map>
         <entry key="..\:/Users/Artorius/AndroidStudioProjects/MyPass/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2265" />
         <entry key="..\:/Users/Artorius/AndroidStudioProjects/MyPass/app/src/main/res/drawable/gradient_background.xml" value="0.2265" />
+        <entry key="..\:/Users/Artorius/AndroidStudioProjects/MyPass/app/src/main/res/drawable/ic_carbon_password.xml" value="0.2265" />
+        <entry key="..\:/Users/Artorius/AndroidStudioProjects/MyPass/app/src/main/res/drawable/ic_icons8_instagram.xml" value="0.2265" />
         <entry key="..\:/Users/Artorius/AndroidStudioProjects/MyPass/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2265" />
+        <entry key="..\:/Users/Artorius/AndroidStudioProjects/MyPass/app/src/main/res/drawable/ic_uiw_login.xml" value="0.2265" />
+        <entry key="..\:/Users/Artorius/AndroidStudioProjects/MyPass/app/src/main/res/drawable/ic_vvsu_logo.xml" value="0.2265" />
         <entry key="..\:/Users/Artorius/AndroidStudioProjects/MyPass/app/src/main/res/drawable/rouded_button.xml" value="0.2265" />
+        <entry key="..\:/Users/Artorius/AndroidStudioProjects/MyPass/app/src/main/res/drawable/rounded_button.xml" value="0.2265" />
         <entry key="..\:/Users/Artorius/AndroidStudioProjects/MyPass/app/src/main/res/drawable/transparent_rounded.xml" value="0.2265" />
+        <entry key="..\:/Users/Artorius/AndroidStudioProjects/MyPass/app/src/main/res/drawable/user.xml" value="0.2265" />
+        <entry key="..\:/Users/Artorius/AndroidStudioProjects/MyPass/app/src/main/res/drawable/vvsu_logo.xml" value="0.2265" />
         <entry key="..\:/Users/Artorius/AndroidStudioProjects/MyPass/app/src/main/res/font/.xml" value="0.2334330910645575" />
         <entry key="..\:/Users/Artorius/AndroidStudioProjects/MyPass/app/src/main/res/font/advent_pro.xml" value="0.2334330910645575" />
         <entry key="..\:/Users/Artorius/AndroidStudioProjects/MyPass/app/src/main/res/font/noto_sans.xml" value="0.2334330910645575" />
         <entry key="..\:/Users/Artorius/AndroidStudioProjects/MyPass/app/src/main/res/font/nunito_italic.xml" value="0.2334330910645575" />
-        <entry key="..\:/Users/Artorius/AndroidStudioProjects/MyPass/app/src/main/res/layout/activity_login_form.xml" value="0.2" />
+        <entry key="..\:/Users/Artorius/AndroidStudioProjects/MyPass/app/src/main/res/font/nunito_sans.xml" value="0.1" />
+        <entry key="..\:/Users/Artorius/AndroidStudioProjects/MyPass/app/src/main/res/layout/activity_login_form.xml" value="0.264" />
         <entry key="..\:/Users/Artorius/AndroidStudioProjects/MyPass/app/src/main/res/layout/activity_main.xml" value="0.176" />
-        <entry key="..\:/Users/Artorius/AndroidStudioProjects/MyPass/app/src/main/res/layout/activity_splash_screen.xml" value="0.1" />
+        <entry key="..\:/Users/Artorius/AndroidStudioProjects/MyPass/app/src/main/res/layout/activity_splash_screen.xml" value="0.176" />
         <entry key="..\:/Users/Artorius/AndroidStudioProjects/MyPass/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.124" />
       </map>
     </option>

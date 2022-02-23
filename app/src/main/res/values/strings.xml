@@ -3,4 +3,12 @@
     <string name="mypass">MyPass</string>
     <string name="vvsu_logo">VVSU_logo</string>
     <string name="mypass_text">mypass_text</string>
+    <string name="enter">Войти</string>
+    <string name="forgot_password"><a href = "https://api.vvsu.ru/services/changepass">Забыли пароль?</a></string>
+    <string name="register"><a href = "https://api.vvsu.ru/services/internal/register">Регистрация</a></string>
+    <string name="logo_mypass">TODO</string>
+    <string name="telegram_logo">TODO</string>
+    <string name="vk_logo">TODO</string>
+    <string name="login">Логин</string>
+    <string name="password">Пароль</string>
 </resources>
