@@ -63,7 +63,7 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/enter"
         android:layout_width="175dp"
         android:layout_height="60dp"
         android:background="@drawable/rounded_button"
@@ -99,7 +99,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button2"
+        app:layout_constraintTop_toBottomOf="@+id/enter"
         app:layout_constraintVertical_bias="0.043" />
 
     <TextView
@@ -129,11 +129,12 @@
         android:backgroundTint="#FFFFFF"
         android:drawableStart="@drawable/user"
         android:drawablePadding="6dp"
+        android:fontFamily="@font/nunito_regular"
         android:hint="@string/login"
         android:inputType="text"
         android:textAlignment="gravity"
         android:textColor="#FFFFFF"
-        android:textColorHint="#A5A5A5"
+        android:textColorHint="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/mypass_text"
@@ -148,11 +149,12 @@
         android:backgroundTint="#FFFFFF"
         android:drawableStart="@drawable/ic_carbon_password"
         android:drawablePadding="6dp"
+        android:fontFamily="@font/nunito_regular"
         android:hint="@string/password"
         android:inputType="textPassword"
         android:textAlignment="gravity"
         android:textColor="#FFFFFF"
-        android:textColorHint="#A5A5A5"
+        android:textColorHint="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.474"
         app:layout_constraintStart_toStartOf="parent"

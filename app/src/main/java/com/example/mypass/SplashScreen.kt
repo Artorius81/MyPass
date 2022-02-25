@@ -6,7 +6,8 @@ import android.os.Handler
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 
-@Suppress("DEPRECATION")
+    @Suppress("DEPRECATION")
+
 class SplashScreen : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

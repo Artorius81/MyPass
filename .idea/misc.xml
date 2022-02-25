@@ -22,7 +22,8 @@
         <entry key="..\:/Users/Artorius/AndroidStudioProjects/MyPass/app/src/main/res/font/nunito_sans.xml" value="0.1" />
         <entry key="..\:/Users/Artorius/AndroidStudioProjects/MyPass/app/src/main/res/layout/activity_login_form.xml" value="0.264" />
         <entry key="..\:/Users/Artorius/AndroidStudioProjects/MyPass/app/src/main/res/layout/activity_main.xml" value="0.176" />
-        <entry key="..\:/Users/Artorius/AndroidStudioProjects/MyPass/app/src/main/res/layout/activity_splash_screen.xml" value="0.176" />
+        <entry key="..\:/Users/Artorius/AndroidStudioProjects/MyPass/app/src/main/res/layout/activity_main_page.xml" value="0.1" />
+        <entry key="..\:/Users/Artorius/AndroidStudioProjects/MyPass/app/src/main/res/layout/activity_splash_screen.xml" value="0.2" />
         <entry key="..\:/Users/Artorius/AndroidStudioProjects/MyPass/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.124" />
       </map>
     </option>

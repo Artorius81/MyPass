@@ -21,6 +21,8 @@ import androidx.appcompat.app.AppCompatActivity
     private var vk: Button? = null //объявление переменной вк
     @SuppressLint("StaticFieldLeak")
     private var telegram: Button? = null //объявление переменной телеграма
+    @SuppressLint("StaticFieldLeak")
+    private var enter: Button? = null //объявление переменной кнопки Войти
 
 class LoginForm : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -60,6 +62,12 @@ class LoginForm : AppCompatActivity() {
         telegram?.setOnClickListener {
             val telegram_link = Intent(Intent.ACTION_VIEW, Uri.parse("https://t.me/vvsuru"))
             startActivity(telegram_link)
+        }
+
+        enter = findViewById(R.id.enter)
+        enter?.setOnClickListener {
+            val enter_button = Intent(this, MainPage::class.java)
+            startActivity(enter_button)
         }
 
     }
