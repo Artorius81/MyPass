@@ -11,4 +11,17 @@
     <string name="vk_logo">TODO</string>
     <string name="login">Логин</string>
     <string name="password">Пароль</string>
+    <string name="menu_card">Мой пропуск</string>
+    <string name="menu_settings">Настройки</string>
+    <string name="menu_personalization">Оформление</string>
+    <string name="title_activity_yhgdrg">yhgdrg</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_activity_main_page">MainPage</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="card">Мой пропуск</string>
+    <string name="settings">Настройки</string>
+    <string name="personalization">Оформление</string>
 </resources>

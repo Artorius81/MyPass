@@ -122,7 +122,7 @@
 
     <EditText
         android:id="@+id/login"
-        android:layout_width="255dp"
+        android:layout_width="280dp"
         android:layout_height="52dp"
         android:layout_marginTop="12dp"
         android:autofillHints=""
@@ -142,7 +142,7 @@
 
     <EditText
         android:id="@+id/password"
-        android:layout_width="255dp"
+        android:layout_width="280dp"
         android:layout_height="52dp"
         android:layout_marginTop="32dp"
         android:autofillHints=""

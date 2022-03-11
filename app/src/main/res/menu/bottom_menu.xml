@@ -1,0 +1,18 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/card"
+        android:icon="@drawable/card"
+        android:title="Мой пропуск"
+        app:cnb_iconColor="#CFB21F"/>
+    <item
+        android:id="@+id/settings"
+        android:icon="@drawable/settings"
+        android:title="Настройки"
+        app:cnb_iconColor="#19DD61"/>
+    <item
+        android:id="@+id/personalization"
+        android:icon="@drawable/personalization"
+        android:title="Оформление"
+        app:cnb_iconColor="#332323" />
+</menu>
