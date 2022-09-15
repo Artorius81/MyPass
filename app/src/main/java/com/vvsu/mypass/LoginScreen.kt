@@ -6,10 +6,12 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.shadow
@@ -21,22 +23,28 @@ import androidx.compose.ui.graphics.Shadow
 import androidx.compose.ui.graphics.drawscope.rotate
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
+
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun OutLineTextFieldSample() {
+fun Login() {
     val montserrat_light = FontFamily(Font(R.font.montserrat_medium))
     var text by remember { mutableStateOf(TextFieldValue("")) }
+    val keyboardController = LocalSoftwareKeyboardController.current
     Column(modifier = Modifier
         .padding(30.dp)
         .width(1500.dp)
@@ -60,10 +68,56 @@ fun OutLineTextFieldSample() {
                     fontFamily = montserrat_light,
                     color = Color.White,
                     fontSize = 17.sp) },
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
+            keyboardOptions = KeyboardOptions(
+                keyboardType = KeyboardType.Email,
+                imeAction = ImeAction.Done),
+            keyboardActions = KeyboardActions(
+                onDone = {keyboardController?.hide()}),
             value = text,
             onValueChange = {
                 text = it
+            }
+        )
+    }
+}
+
+@OptIn(ExperimentalComposeUiApi::class)
+@Composable
+fun Password() {
+    val montserrat_light = FontFamily(Font(R.font.montserrat_medium))
+    var password by remember { mutableStateOf(("")) }
+    val keyboardController = LocalSoftwareKeyboardController.current
+    Column(modifier = Modifier
+        .padding(30.dp)
+        .width(1500.dp)
+        .height(350.dp)
+        .fillMaxWidth()
+        .wrapContentSize(Alignment.BottomCenter)) {
+        OutlinedTextField(
+            colors = TextFieldDefaults.outlinedTextFieldColors(
+                textColor=Color.Black,
+                backgroundColor = Color.Transparent,
+                cursorColor = Color.White,
+                focusedBorderColor= Color.White,
+                unfocusedBorderColor = Color.White),
+            // placeholder = { Text("Логин") },
+            textStyle = TextStyle(fontSize =  20.sp, color = Color.White),
+            shape = RoundedCornerShape(25.dp),
+            singleLine = true,
+            label = {
+                Text(
+                    text = "Пароль",
+                    fontFamily = montserrat_light,
+                    color = Color.White,
+                    fontSize = 17.sp) },
+            visualTransformation = PasswordVisualTransformation(),
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password,
+                imeAction = ImeAction.Done),
+            keyboardActions = KeyboardActions(
+                onDone = {keyboardController?.hide()}),
+            value = password,
+            onValueChange = {
+                password = it
             }
         )
     }

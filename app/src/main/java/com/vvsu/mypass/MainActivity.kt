@@ -48,11 +48,12 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             LoginScreen()
-            OutLineTextFieldSample()
-            //MyPassTheme {
-                //val navController = rememberNavController()
-                //SetupNavGraph(navController = navController)
+            Login()
+            Password()
+            MyPassTheme {
+                val navController = rememberNavController()
+                SetupNavGraph(navController = navController)
             }
         }
     }
-//}
+}
