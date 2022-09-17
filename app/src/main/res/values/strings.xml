@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">MyPass</string>
+    <string name="hyperlink"><a href="https://api.vvsu.ru/services/changepass">Забыли пароль?</a></string>
 </resources>
