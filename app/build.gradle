@@ -82,5 +82,7 @@ dependencies {
     implementation 'com.airbnb.android:lottie-compose:5.2.0'
 
     //NavController
+    implementation "androidx.core:core-splashscreen:1.0.0-alpha01"
+    implementation "androidx.navigation:navigation-compose:2.4.0-alpha06"
     implementation 'androidx.navigation:navigation-compose:2.5.2'
 }

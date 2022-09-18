@@ -18,7 +18,10 @@ import androidx.compose.material.MaterialTheme.colors
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Share
+import androidx.compose.material.icons.filled.Visibility
+import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
@@ -40,10 +43,7 @@ import androidx.compose.ui.text.*
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.text.input.*
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
@@ -53,6 +53,7 @@ import androidx.compose.ui.unit.sp
 import com.vvsu.mypass.ui.theme.blue
 import com.vvsu.mypass.ui.theme.blue69
 import compose.icons.FeatherIcons
+import compose.icons.feathericons.Heart
 import compose.icons.feathericons.Key
 import compose.icons.feathericons.LogIn
 import compose.icons.feathericons.User
@@ -69,10 +70,11 @@ fun LoginScreen() {
     val montserrat_regular = FontFamily(Font(R.font.montserrat_regular))
     val montserrat_extralight = FontFamily(Font(R.font.montserrat_extralight))
     var password by remember { mutableStateOf(("")) }
+    var passwordVisible by rememberSaveable { mutableStateOf(false) }
     var text by remember { mutableStateOf(TextFieldValue("")) }
     val keyboardController = LocalSoftwareKeyboardController.current
     val paddingModifier = Modifier.padding(10.dp)
-    val widthOnTopBar = "                                                                             "
+    val widthOnTopBar = "                                                         "
     val widthOnBottomBar = "                                                 "
     val uriHandler = LocalUriHandler.current
     val context = LocalContext.current
@@ -145,7 +147,7 @@ fun LoginScreen() {
     Column(modifier = Modifier
         .padding(30.dp)
         .width(1500.dp)
-        .height(100.dp)
+        .height(102.dp)
         .fillMaxWidth()
         .wrapContentSize(Alignment.BottomCenter)) {
         Text(
@@ -172,14 +174,14 @@ fun LoginScreen() {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Card(shape = RoundedCornerShape(20.dp), elevation = 10.dp, modifier = paddingModifier
-            .height(3.dp)) {
+            .height(2.dp)) {
             Text(text = widthOnTopBar, modifier = paddingModifier)
         }
     }
     Column(modifier = Modifier
-        .padding(30.dp)
+        .padding(25.dp)
         .width(1500.dp)
-        .height(240.dp)
+        .height(245.dp)
         .fillMaxWidth()
         .wrapContentSize(Alignment.Center)) {
         Text(
@@ -269,12 +271,24 @@ fun LoginScreen() {
                     fontFamily = montserrat_light,
                     color = Color.White,
                     fontSize = 17.sp) },
-            visualTransformation = PasswordVisualTransformation(),
+            visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password,
                 imeAction = ImeAction.Done),
             keyboardActions = KeyboardActions(
                 onDone = {keyboardController?.hide()}),
             leadingIcon = { Icon(imageVector = FeatherIcons.Key, tint = Color.White, contentDescription = "passwordIcon") },
+            trailingIcon = {
+                val image = if (passwordVisible)
+                    Icons.Filled.Visibility
+                else Icons.Filled.VisibilityOff
+
+                // Please provide localized description for accessibility services
+                val description = if (passwordVisible) "Скрыть пароль" else "Показатьб пароль"
+
+                IconButton(onClick = { passwordVisible = !passwordVisible }) {
+                    Icon(imageVector = image, tint = Color.White, contentDescription = "showHidePass")
+                }
+            },
 
             value = password,
             onValueChange = {
