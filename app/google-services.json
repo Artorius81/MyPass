@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1077360010253",
+    "project_id": "mypass-1488",
+    "storage_bucket": "mypass-1488.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1077360010253:android:19cc82d7661a931d2aa144",
+        "android_client_info": {
+          "package_name": "com.vvsu.mypass"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1077360010253-bf0dop17l2dmlqdeh65hp0v581vap52p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAN9YO1eQti6QkF1Ik5D2nhvXU1jvunf-A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1077360010253-bf0dop17l2dmlqdeh65hp0v581vap52p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
