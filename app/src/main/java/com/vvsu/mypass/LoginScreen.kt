@@ -80,6 +80,7 @@ fun LoginScreen() {
     val context = LocalContext.current
     val intentVk = remember { Intent(Intent.ACTION_VIEW, Uri.parse("https://vk.com/vvsu_dv")) }
     val intentTg = remember { Intent(Intent.ACTION_VIEW, Uri.parse("https://t.me/vvsuru")) }
+    val intentVVSU = remember { Intent(Intent.ACTION_VIEW, Uri.parse("https://www.vvsu.ru/")) }
     val annotatedLinkStringPassword: AnnotatedString = buildAnnotatedString {
 
         val forgetPassword = "Забыли пароль?"
@@ -96,8 +97,6 @@ fun LoginScreen() {
                 fontSize = 18.sp,
             ), start = startIndex, end = endIndex
         )
-
-        // attach a string annotation that stores a URL to the text "link"
         addStringAnnotation(
             tag = "URL_Pass",
             annotation = "https://api.vvsu.ru/services/changepass",
@@ -113,9 +112,9 @@ fun LoginScreen() {
     }
     val annotatedLinkStringReg: AnnotatedString = buildAnnotatedString {
 
-        val registration = "Регистрация - и точка."
-        val startIndex = registration.indexOf("Регистрация - и точка.")
-        val endIndex = startIndex + 22
+        val registration = "Регистрация"
+        val startIndex = registration.indexOf("Регистрация")
+        val endIndex = startIndex + 11
         append(registration)
         addStyle(
             style = SpanStyle(
@@ -282,8 +281,7 @@ fun LoginScreen() {
                     Icons.Filled.Visibility
                 else Icons.Filled.VisibilityOff
 
-                // Please provide localized description for accessibility services
-                val description = if (passwordVisible) "Скрыть пароль" else "Показатьб пароль"
+                val description = if (passwordVisible) "Скрыть пароль" else "Показать пароль"
 
                 IconButton(onClick = { passwordVisible = !passwordVisible }) {
                     Icon(imageVector = image, tint = Color.White, contentDescription = "showHidePass")
@@ -372,24 +370,35 @@ fun LoginScreen() {
 
     // vvsu_logo part \\
 
-    //Column(modifier = Modifier
-     //   .padding(40.dp)
-     //   .width(50.dp)
-     //   .height(690.dp)
-     //   .fillMaxWidth()
-     //   .wrapContentSize(Alignment.BottomCenter)) {
-     //   Image(
-     //       painterResource(R.drawable.vvsu_logo),
-     //       contentDescription = null,
-     //       modifier = Modifier.requiredSize(100.dp)
-     //   )
-    //}
+    Column(modifier = Modifier
+        .padding(40.dp)
+        .width(350.dp)
+        .height(800.dp)
+        .fillMaxWidth()
+        .wrapContentSize(Alignment.BottomCenter)) {
+        Button(
+            modifier = Modifier,
+            onClick = { context.startActivity(intentVVSU) },
+            elevation = ButtonDefaults.elevation(
+                defaultElevation = 0.dp,
+                pressedElevation = 0.dp,
+                disabledElevation = 0.dp
+            ),
+            colors = buttonColors(backgroundColor = blue69, contentColor = blue69)
+        ) {
+            Image(
+                painterResource(R.drawable.vvsu_logo),
+                contentDescription = null,
+                modifier = Modifier.requiredSize(100.dp)
+            )
+        }
+    }
 
     // logo_part \\
 
     Column(modifier = Modifier
         .padding(40.dp)
-        .width(230.dp)
+        .width(150.dp)
         .height(690.dp)
         .fillMaxWidth()
         .wrapContentSize(Alignment.BottomCenter)) {
@@ -411,7 +420,7 @@ fun LoginScreen() {
     }
     Column(modifier = Modifier
         .padding(40.dp)
-        .width(230.dp)
+        .width(270.dp)
         .height(690.dp)
         .fillMaxWidth()
         .wrapContentSize(Alignment.BottomEnd)) {
