@@ -2,9 +2,7 @@ package com.vvsu.mypass
 
 import android.content.Intent
 import android.net.Uri
-import androidx.annotation.DrawableRes
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -14,10 +12,7 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.ButtonDefaults.buttonColors
-import androidx.compose.material.MaterialTheme.colors
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Email
-import androidx.compose.material.icons.filled.Share
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.runtime.*
@@ -25,16 +20,9 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.graphics.DefaultAlpha
 import androidx.compose.ui.graphics.Shadow
-import androidx.compose.ui.graphics.drawscope.rotate
-import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.platform.LocalUriHandler
@@ -42,18 +30,13 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.*
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.*
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.vvsu.mypass.ui.theme.blue
 import com.vvsu.mypass.ui.theme.blue69
 import compose.icons.FeatherIcons
-import compose.icons.feathericons.Heart
 import compose.icons.feathericons.Key
 import compose.icons.feathericons.LogIn
 import compose.icons.feathericons.User
@@ -67,8 +50,8 @@ fun LoginScreen() {
     val montserrat_light = FontFamily(Font(R.font.montserrat_medium))
     val montserrat_italic = FontFamily(Font(R.font.montserrat_lightitalic))
     val montserrat_bold = FontFamily(Font(R.font.montserrat_medium))
-    val montserrat_regular = FontFamily(Font(R.font.montserrat_regular))
-    val montserrat_extralight = FontFamily(Font(R.font.montserrat_extralight))
+    // val montserrat_regular = FontFamily(Font(R.font.montserrat_regular))
+    // val montserrat_extralight = FontFamily(Font(R.font.montserrat_extralight))
     var password by remember { mutableStateOf(("")) }
     var passwordVisible by rememberSaveable { mutableStateOf(false) }
     var text by remember { mutableStateOf(TextFieldValue("")) }
@@ -281,7 +264,7 @@ fun LoginScreen() {
                     Icons.Filled.Visibility
                 else Icons.Filled.VisibilityOff
 
-                val description = if (passwordVisible) "Скрыть пароль" else "Показать пароль"
+                // val description = if (passwordVisible) "Скрыть пароль" else "Показать пароль"
 
                 IconButton(onClick = { passwordVisible = !passwordVisible }) {
                     Icon(imageVector = image, tint = Color.White, contentDescription = "showHidePass")
