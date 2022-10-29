@@ -1,13 +1,21 @@
 buildscript {
+    ext.kotlin_version = '1.7.20'
     ext {
         compose_version = '1.1.0-beta01'
     }
     repositories {
         google()
+        maven {
+            url "https://maven.google.com"
+        }
         mavenCentral()
+        maven {
+            url "https://maven.fabric.io/public"
+        }
     }
     dependencies {
         classpath 'com.google.gms:google-services:4.3.14'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 
 }// Toplevel build file where you can add configuration options common to all sub-projects/modules.
@@ -19,4 +27,15 @@ plugins {
 
 task clean(type: Delete) {
     delete rootProject.buildDir
+}
+
+repositories {
+    google()
+    maven {
+        url "https://maven.google.com"
+    }
+    mavenCentral()
+    maven {
+        url "https://maven.fabric.io./public"
+    }
 }
