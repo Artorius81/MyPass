@@ -10,6 +10,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.vvsu.mypass.SplashScreen
+import com.vvsu.mypass.Welcome
+
 
 @Composable
 fun SetupNavGraph(navController: NavHostController) {
@@ -21,7 +23,18 @@ fun SetupNavGraph(navController: NavHostController) {
         composable(route = Screen.Splash.route) {
             SplashScreen(navController = navController)
         }
-        composable(route = Screen.Home.route) {
+        composable(route = Screen.Login.route) {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(Color.White),
+            )
+            navController.popBackStack()
+        }
+        composable(route = Screen.Welcome.route) {
+            Welcome(navController = navController)
+        }
+        composable(route = Screen.Main.route) {
             Box(
                 modifier = Modifier
                     .fillMaxSize()

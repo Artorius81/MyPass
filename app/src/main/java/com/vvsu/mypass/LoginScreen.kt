@@ -288,7 +288,7 @@ fun LoginScreen() {
         .wrapContentSize(Alignment.BottomCenter)) {
         Button(modifier = Modifier.height(120.dp).width(230.dp)
             .padding(30.dp),
-            onClick = { },
+            onClick = { context.startActivity(Intent(context, SecondActivity::class.java)) },
             border = BorderStroke(1.dp, Color.White),
             shape = RoundedCornerShape(30), // = 30% percent
             colors = ButtonDefaults.outlinedButtonColors(backgroundColor = Color.Transparent, contentColor = Color.Transparent),
@@ -351,37 +351,11 @@ fun LoginScreen() {
         )
     }
 
-    // vvsu_logo part \\
-
-    Column(modifier = Modifier
-        .padding(40.dp)
-        .width(350.dp)
-        .height(800.dp)
-        .fillMaxWidth()
-        .wrapContentSize(Alignment.BottomCenter)) {
-        Button(
-            modifier = Modifier,
-            onClick = { context.startActivity(intentVVSU) },
-            elevation = ButtonDefaults.elevation(
-                defaultElevation = 0.dp,
-                pressedElevation = 0.dp,
-                disabledElevation = 0.dp
-            ),
-            colors = buttonColors(backgroundColor = blue69, contentColor = blue69)
-        ) {
-            Image(
-                painterResource(R.drawable.vvsu_logo),
-                contentDescription = null,
-                modifier = Modifier.requiredSize(100.dp)
-            )
-        }
-    }
-
     // logo_part \\
 
     Column(modifier = Modifier
         .padding(40.dp)
-        .width(150.dp)
+        .width(80.dp)
         .height(690.dp)
         .fillMaxWidth()
         .wrapContentSize(Alignment.BottomCenter)) {
@@ -403,7 +377,7 @@ fun LoginScreen() {
     }
     Column(modifier = Modifier
         .padding(40.dp)
-        .width(270.dp)
+        .width(280.dp)
         .height(690.dp)
         .fillMaxWidth()
         .wrapContentSize(Alignment.BottomEnd)) {
