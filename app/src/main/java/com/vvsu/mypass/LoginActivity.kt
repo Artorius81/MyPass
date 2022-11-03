@@ -71,8 +71,10 @@ class LoginActivity : ComponentActivity() {
                 val widthOnBottomBar = "                                                 "
                 val uriHandler = LocalUriHandler.current
                 val context = LocalContext.current
-                val intentVk = remember { Intent(Intent.ACTION_VIEW, Uri.parse("https://vk.com/vvsu_dv")) }
-                val intentTg = remember { Intent(Intent.ACTION_VIEW, Uri.parse("https://t.me/vvsuru")) }
+                val intentVk =
+                    remember { Intent(Intent.ACTION_VIEW, Uri.parse("https://vk.com/vvsu_dv")) }
+                val intentTg =
+                    remember { Intent(Intent.ACTION_VIEW, Uri.parse("https://t.me/vvsuru")) }
                 val annotatedLinkStringPassword: AnnotatedString = buildAnnotatedString {
 
                     val forgetPassword = "Забыли пароль?"
@@ -131,16 +133,20 @@ class LoginActivity : ComponentActivity() {
                         end = endIndex
                     )
                 }
-                Box(modifier = Modifier
-                    .fillMaxSize()
-                    .background(blue69),
+
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(blue69),
                 )
-                Column(modifier = Modifier
-                    .padding(30.dp)
-                    .width(1500.dp)
-                    .height(102.dp)
-                    .fillMaxWidth()
-                    .wrapContentSize(Alignment.BottomCenter)) {
+                Column(
+                    modifier = Modifier
+                        .padding(30.dp)
+                        .width(1500.dp)
+                        .height(102.dp)
+                        .fillMaxWidth()
+                        .wrapContentSize(Alignment.BottomCenter)
+                ) {
                     Text(
                         modifier = Modifier,
                         text = "MyPass",
@@ -164,17 +170,23 @@ class LoginActivity : ComponentActivity() {
                     verticalArrangement = Arrangement.SpaceEvenly,
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Card(shape = RoundedCornerShape(20.dp), elevation = 10.dp, modifier = paddingModifier
-                        .height(2.dp)) {
+                    Card(
+                        shape = RoundedCornerShape(20.dp),
+                        elevation = 10.dp,
+                        modifier = paddingModifier
+                            .height(2.dp)
+                    ) {
                         Text(text = widthOnTopBar, modifier = paddingModifier)
                     }
                 }
-                Column(modifier = Modifier
-                    .padding(25.dp)
-                    .width(1500.dp)
-                    .height(245.dp)
-                    .fillMaxWidth()
-                    .wrapContentSize(Alignment.Center)) {
+                Column(
+                    modifier = Modifier
+                        .padding(25.dp)
+                        .width(1500.dp)
+                        .height(245.dp)
+                        .fillMaxWidth()
+                        .wrapContentSize(Alignment.Center)
+                ) {
                     Text(
                         modifier = Modifier,
                         text = "Ваш пропуск в смартфоне",
@@ -190,20 +202,23 @@ class LoginActivity : ComponentActivity() {
                         )
                     )
                 }
-                Column(modifier = Modifier
-                    .padding(30.dp)
-                    .width(1500.dp)
-                    .height(250.dp)
-                    .fillMaxWidth()
-                    .wrapContentSize(Alignment.BottomCenter)) {
+                Column(
+                    modifier = Modifier
+                        .padding(30.dp)
+                        .width(1500.dp)
+                        .height(250.dp)
+                        .fillMaxWidth()
+                        .wrapContentSize(Alignment.BottomCenter)
+                ) {
                     OutlinedTextField(
                         colors = TextFieldDefaults.outlinedTextFieldColors(
-                            textColor=Color.Black,
+                            textColor = Color.Black,
                             backgroundColor = Color.Transparent,
                             cursorColor = Color.White,
-                            focusedBorderColor= Color.White,
-                            unfocusedBorderColor = Color.White),
-                        textStyle = TextStyle(fontSize =  20.sp, color = Color.White),
+                            focusedBorderColor = Color.White,
+                            unfocusedBorderColor = Color.White
+                        ),
+                        textStyle = TextStyle(fontSize = 20.sp, color = Color.White),
                         shape = RoundedCornerShape(25.dp),
                         singleLine = true,
                         label = {
@@ -211,13 +226,22 @@ class LoginActivity : ComponentActivity() {
                                 text = "Логин",
                                 fontFamily = montserrat_light,
                                 color = Color.White,
-                                fontSize = 17.sp) },
+                                fontSize = 17.sp
+                            )
+                        },
                         keyboardOptions = KeyboardOptions(
                             keyboardType = KeyboardType.Email,
-                            imeAction = ImeAction.Done),
+                            imeAction = ImeAction.Done
+                        ),
                         keyboardActions = KeyboardActions(
-                            onDone = {keyboardController?.hide()}),
-                        leadingIcon = { Icon(imageVector = FeatherIcons.User, tint = Color.White, contentDescription = "userIcon") },
+                            onDone = { keyboardController?.hide() }),
+                        leadingIcon = {
+                            Icon(
+                                imageVector = FeatherIcons.User,
+                                tint = Color.White,
+                                contentDescription = "userIcon"
+                            )
+                        },
                         value = text,
                         onValueChange = {
                             text = it
@@ -232,28 +256,35 @@ class LoginActivity : ComponentActivity() {
                     verticalArrangement = Arrangement.SpaceEvenly,
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Card(shape = RoundedCornerShape(20.dp), elevation = 10.dp, modifier = paddingModifier
-                        .height(3.dp)) {
+                    Card(
+                        shape = RoundedCornerShape(20.dp),
+                        elevation = 10.dp,
+                        modifier = paddingModifier
+                            .height(3.dp)
+                    ) {
                         Text(text = widthOnBottomBar, modifier = paddingModifier)
                     }
                 }
 
                 // Password TextField part \\
 
-                Column(modifier = Modifier
-                    .padding(30.dp)
-                    .width(1500.dp)
-                    .height(350.dp)
-                    .fillMaxWidth()
-                    .wrapContentSize(Alignment.BottomCenter)) {
+                Column(
+                    modifier = Modifier
+                        .padding(30.dp)
+                        .width(1500.dp)
+                        .height(350.dp)
+                        .fillMaxWidth()
+                        .wrapContentSize(Alignment.BottomCenter)
+                ) {
                     OutlinedTextField(
                         colors = TextFieldDefaults.outlinedTextFieldColors(
-                            textColor=Color.Black,
+                            textColor = Color.Black,
                             backgroundColor = Color.Transparent,
                             cursorColor = Color.White,
-                            focusedBorderColor= Color.White,
-                            unfocusedBorderColor = Color.White),
-                        textStyle = TextStyle(fontSize =  20.sp, color = Color.White),
+                            focusedBorderColor = Color.White,
+                            unfocusedBorderColor = Color.White
+                        ),
+                        textStyle = TextStyle(fontSize = 20.sp, color = Color.White),
                         shape = RoundedCornerShape(25.dp),
                         singleLine = true,
                         label = {
@@ -261,13 +292,23 @@ class LoginActivity : ComponentActivity() {
                                 text = "Пароль",
                                 fontFamily = montserrat_light,
                                 color = Color.White,
-                                fontSize = 17.sp) },
+                                fontSize = 17.sp
+                            )
+                        },
                         visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
-                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password,
-                            imeAction = ImeAction.Done),
+                        keyboardOptions = KeyboardOptions(
+                            keyboardType = KeyboardType.Password,
+                            imeAction = ImeAction.Done
+                        ),
                         keyboardActions = KeyboardActions(
-                            onDone = {keyboardController?.hide()}),
-                        leadingIcon = { Icon(imageVector = FeatherIcons.Key, tint = Color.White, contentDescription = "passwordIcon") },
+                            onDone = { keyboardController?.hide() }),
+                        leadingIcon = {
+                            Icon(
+                                imageVector = FeatherIcons.Key,
+                                tint = Color.White,
+                                contentDescription = "passwordIcon"
+                            )
+                        },
                         trailingIcon = {
                             val image = if (passwordVisible)
                                 Icons.Filled.Visibility
@@ -275,7 +316,11 @@ class LoginActivity : ComponentActivity() {
 
 
                             IconButton(onClick = { passwordVisible = !passwordVisible }) {
-                                Icon(imageVector = image, tint = Color.White, contentDescription = "showHidePass")
+                                Icon(
+                                    imageVector = image,
+                                    tint = Color.White,
+                                    contentDescription = "showHidePass"
+                                )
                             }
                         },
 
@@ -288,19 +333,25 @@ class LoginActivity : ComponentActivity() {
 
                 // Enter button part \\
 
-                Column(modifier = Modifier
-                    .padding(80.dp)
-                    .width(1400.dp)
-                    .height(435.dp)
-                    .fillMaxWidth()
-                    .wrapContentSize(Alignment.BottomCenter)) {
-                    Button(modifier = Modifier.height(120.dp).width(230.dp)
-                        .padding(30.dp),
+                Column(
+                    modifier = Modifier
+                        .padding(80.dp)
+                        .width(1400.dp)
+                        .height(435.dp)
+                        .fillMaxWidth()
+                        .wrapContentSize(Alignment.BottomCenter)
+                ) {
+                    Button(
+                        modifier = Modifier.height(120.dp).width(230.dp)
+                            .padding(30.dp),
                         onClick = { startActivity(intent) },
                         border = BorderStroke(1.dp, Color.White),
                         shape = RoundedCornerShape(30), // = 30% percent
-                        colors = ButtonDefaults.outlinedButtonColors(backgroundColor = Color.Transparent, contentColor = Color.Transparent),
-                    ){
+                        colors = ButtonDefaults.outlinedButtonColors(
+                            backgroundColor = Color.Transparent,
+                            contentColor = Color.Transparent
+                        ),
+                    ) {
                         Text(
                             text = "Войти",
                             textAlign = TextAlign.Center,
@@ -319,12 +370,14 @@ class LoginActivity : ComponentActivity() {
 
                 // Forget password part \\
 
-                Column(modifier = Modifier
-                    .padding(30.dp)
-                    .width(1500.dp)
-                    .height(550.dp)
-                    .fillMaxWidth()
-                    .wrapContentSize(Alignment.BottomCenter)) {
+                Column(
+                    modifier = Modifier
+                        .padding(30.dp)
+                        .width(1500.dp)
+                        .height(550.dp)
+                        .fillMaxWidth()
+                        .wrapContentSize(Alignment.BottomCenter)
+                ) {
                     ClickableText(
                         modifier = Modifier,
                         text = annotatedLinkStringPassword,
@@ -340,11 +393,13 @@ class LoginActivity : ComponentActivity() {
 
                 // Registration part \\
 
-                Column(modifier = Modifier
-                    .padding(30.dp)
-                    .width(1500.dp)
-                    .height(590.dp)
-                    .wrapContentSize(Alignment.BottomCenter)) {
+                Column(
+                    modifier = Modifier
+                        .padding(30.dp)
+                        .width(1500.dp)
+                        .height(590.dp)
+                        .wrapContentSize(Alignment.BottomCenter)
+                ) {
                     ClickableText(
                         modifier = Modifier,
                         text = annotatedLinkStringReg,
@@ -360,13 +415,16 @@ class LoginActivity : ComponentActivity() {
 
                 // logo_part \\
 
-                Column(modifier = Modifier
-                    .padding(40.dp)
-                    .width(80.dp)
-                    .height(690.dp)
-                    .fillMaxWidth()
-                    .wrapContentSize(Alignment.BottomCenter)) {
-                    Button(modifier = Modifier,
+                Column(
+                    modifier = Modifier
+                        .padding(40.dp)
+                        .width(80.dp)
+                        .height(690.dp)
+                        .fillMaxWidth()
+                        .wrapContentSize(Alignment.BottomCenter)
+                ) {
+                    Button(
+                        modifier = Modifier,
                         onClick = { context.startActivity(intentVk) },
                         elevation = ButtonDefaults.elevation(
                             defaultElevation = 0.dp,
@@ -382,13 +440,16 @@ class LoginActivity : ComponentActivity() {
                         )
                     }
                 }
-                Column(modifier = Modifier
-                    .padding(40.dp)
-                    .width(280.dp)
-                    .height(690.dp)
-                    .fillMaxWidth()
-                    .wrapContentSize(Alignment.BottomEnd)) {
-                    Button(modifier = Modifier,
+                Column(
+                    modifier = Modifier
+                        .padding(40.dp)
+                        .width(280.dp)
+                        .height(690.dp)
+                        .fillMaxWidth()
+                        .wrapContentSize(Alignment.BottomEnd)
+                ) {
+                    Button(
+                        modifier = Modifier,
                         onClick = { context.startActivity(intentTg) },
                         elevation = ButtonDefaults.elevation(
                             defaultElevation = 0.dp,

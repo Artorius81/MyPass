@@ -20,6 +20,8 @@ import com.vvsu.mypass.ui.theme.MyPassTheme
 import com.vvsu.mypass.ui.theme.blue69
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
+import com.vvsu.mypass.ui.theme.WhiteCard
+import com.vvsu.mypass.ui.theme.WhiteMain
 
 
 class MainActivity : ComponentActivity() {
@@ -34,7 +36,7 @@ class MainActivity : ComponentActivity() {
 
                 Box(modifier = Modifier
                     .fillMaxSize()
-                    .background(blue69),
+                    .background(WhiteCard),
                 )
                 Column(modifier = Modifier
                     .padding(30.dp)
