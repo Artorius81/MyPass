@@ -1,35 +1,72 @@
 package com.vvsu.mypass
 
+
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.navigation.compose.rememberNavController
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.*
+import androidx.compose.material.*
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shadow
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.vvsu.mypass.ui.theme.MyPassTheme
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import com.vvsu.mypass.navigation.Screen
+import com.vvsu.mypass.ui.theme.blue69
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 
 
 class MainActivity : ComponentActivity() {
+
+    var backPressedTime: Long = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             MyPassTheme() {
-                Surface(color = MaterialTheme.colors.background) {
-                    val navController = rememberNavController()
-                    NavHost(navController = navController, startDestination = Screen.Splash.route) {
-                        composable(Screen.Splash.route) {
-                            SplashScreen(navController)
-                        }
-                        composable("main_screen") {
-                            LoginScreen()
-                        }
-                    }
+                val montserrat_bold = FontFamily(Font(R.font.montserrat_medium))
+
+                Box(modifier = Modifier
+                    .fillMaxSize()
+                    .background(blue69),
+                )
+                Column(modifier = Modifier
+                    .padding(30.dp)
+                    .width(1500.dp)
+                    .height(102.dp)
+                    .fillMaxWidth()
+                    .wrapContentSize(Alignment.BottomCenter)) {
+                    Text(
+                        modifier = Modifier,
+                        text = "MyPass",
+                        textAlign = TextAlign.Center,
+                        style = MaterialTheme.typography.h4.copy(
+                            shadow = Shadow(
+                                offset = Offset(2f, 2f),
+                                blurRadius = 1f
+                            ),
+                            color = Color.White,
+                            fontSize = 45.sp,
+                            fontFamily = montserrat_bold
+                        )
+                    )
                 }
             }
         }
+    }
+    override fun onBackPressed() {
+        if (backPressedTime + 3000 > System.currentTimeMillis()) {
+            super.onBackPressed()
+            finishAffinity()
+        } else {
+            Toast.makeText(this, "Нажмите второй раз для выхода из приложения", Toast.LENGTH_LONG).show()
+        }
+        backPressedTime = System.currentTimeMillis()
     }
 }
