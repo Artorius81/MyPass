@@ -1,5 +1,6 @@
 package com.vvsu.mypass.navigation
 
+
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -9,10 +10,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.vvsu.mypass.SplashScreen
-import com.vvsu.mypass.Welcome
 
 
+
+/*
 @Composable
 fun SetupNavGraph(navController: NavHostController) {
     navController.popBackStack()
@@ -43,4 +44,5 @@ fun SetupNavGraph(navController: NavHostController) {
             navController.popBackStack()
         }
     }
-}
+ }
+ */

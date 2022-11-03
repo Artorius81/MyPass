@@ -288,7 +288,7 @@ fun LoginScreen() {
         .wrapContentSize(Alignment.BottomCenter)) {
         Button(modifier = Modifier.height(120.dp).width(230.dp)
             .padding(30.dp),
-            onClick = { context.startActivity(Intent(context, SecondActivity::class.java)) },
+            onClick = { context.startActivity(Intent(context, WelcomeActivity::class.java)) },
             border = BorderStroke(1.dp, Color.White),
             shape = RoundedCornerShape(30), // = 30% percent
             colors = ButtonDefaults.outlinedButtonColors(backgroundColor = Color.Transparent, contentColor = Color.Transparent),
