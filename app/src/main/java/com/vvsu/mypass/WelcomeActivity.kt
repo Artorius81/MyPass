@@ -4,7 +4,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.animation.OvershootInterpolator
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.core.Animatable
@@ -12,9 +14,7 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Card
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -23,21 +23,42 @@ import androidx.compose.ui.draw.scale
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shadow
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.*
 import com.vvsu.mypass.ui.theme.MyPassTheme
 import com.vvsu.mypass.ui.theme.blue69
-import androidx.compose.foundation.layout.padding
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
+import com.vvsu.mypass.utils.initFirebase
 
 
 class WelcomeActivity : ComponentActivity() {
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             MyPassTheme() {
+                initFirebase()
+
+                val rootRef = FirebaseDatabase.getInstance().reference
+                val uid = FirebaseAuth.getInstance().currentUser!!.uid
+                val uidRef = rootRef.child("USERS").child(uid)
+                uidRef.get().addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        val snapshot = task.result
+                        val username = snapshot?.child("name")?.getValue(String::class.java)
+                        Toast.makeText(baseContext, "$username",
+                            Toast.LENGTH_SHORT).show()
+                    } else {
+                        Log.d("TAG", task.exception!!.message!!) //Don't ignore potential errors!
+                    }
+                }
+
+
                 val paddingModifier = Modifier.padding(10.dp)
                 val widthOnTopBar = "                                                         "
                 val montserrat_bold = FontFamily(Font(R.font.montserrat_medium))
@@ -74,7 +95,7 @@ class WelcomeActivity : ComponentActivity() {
                 ) {
                     Text(
                         modifier = Modifier,
-                        text = "Илья",
+                        text = uid,
                         textAlign = TextAlign.Center,
                         style = MaterialTheme.typography.h4.copy(
                             shadow = Shadow(
@@ -133,7 +154,7 @@ class WelcomeActivity : ComponentActivity() {
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
                     finish()
-                }, 1500)
+                }, 2000)
             }
         }
     }
