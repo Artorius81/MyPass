@@ -95,7 +95,7 @@ class WelcomeActivity : ComponentActivity() {
                 ) {
                     Text(
                         modifier = Modifier,
-                        text = "$uid",
+                        text = uid,
                         textAlign = TextAlign.Center,
                         style = MaterialTheme.typography.h4.copy(
                             shadow = Shadow(
