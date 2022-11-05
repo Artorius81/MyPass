@@ -27,31 +27,19 @@
             android:name=".WelcomeActivity"
             android:launchMode = "singleTop"
             android:exported="true"
-            android:label="MyPass"
             android:theme="@style/Theme.MyPass">
-            <intent-filter>
-                <action android:name="android.intent.action.DEFAULT" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".MainActivity"
             android:launchMode = "singleTop"
             android:exported="true"
-            android:label="MyPass"
             android:theme="@style/Theme.MyPass">
-            <intent-filter>
-                <action android:name="android.intent.action.DEFAULT" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".LoginActivity"
             android:launchMode = "singleTop"
             android:exported="true"
-            android:label="MyPass"
             android:theme="@style/Theme.MyPass">
-            <intent-filter>
-                <action android:name="android.intent.action.DEFAULT" />
-            </intent-filter>
         </activity>
     </application>
 

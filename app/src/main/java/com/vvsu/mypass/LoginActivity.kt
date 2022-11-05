@@ -44,7 +44,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.vvsu.mypass.ui.theme.MyPassTheme
@@ -82,7 +81,6 @@ class LoginActivity : ComponentActivity() {
     @OptIn(ExperimentalComposeUiApi::class)
     private fun LoginScreen() {
 
-        val intent = Intent(this, WelcomeActivity::class.java)
         val montserrat_light = FontFamily(Font(R.font.montserrat_medium))
         val montserrat_italic = FontFamily(Font(R.font.montserrat_lightitalic))
         val montserrat_bold = FontFamily(Font(R.font.montserrat_medium))
@@ -505,22 +503,21 @@ class LoginActivity : ComponentActivity() {
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "signInWithEmail:success")
-                    val user = auth.currentUser
                     val intent = Intent(this, WelcomeActivity::class.java)
                     startActivity(intent)
-                    updateUI(user)
+                    updateUI()
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w(TAG, "signInWithEmail:failure", task.exception)
                     Toast.makeText(baseContext, "Неверный логин или пароль",
                         Toast.LENGTH_SHORT).show()
-                    updateUI(null)
+                    updateUI()
                 }
             }
         // [END sign_in_with_email]
     }
 
-    private fun updateUI(user: FirebaseUser?) {
+    private fun updateUI() {
 
     }
 }

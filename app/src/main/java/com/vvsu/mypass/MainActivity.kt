@@ -10,32 +10,36 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.*
+import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shadow
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.vvsu.mypass.ui.theme.MyPassTheme
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import com.vvsu.mypass.ui.theme.MyPassTheme
 import com.vvsu.mypass.ui.theme.WhiteCard
 import com.vvsu.mypass.ui.theme.blue69
 
 
+@Suppress("DEPRECATION")
 class MainActivity : ComponentActivity() {
 
-    var backPressedTime: Long = 0
+    private var backPressedTime: Long = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            MyPassTheme() {
+            MyPassTheme {
                 val intent = Intent(this, LoginActivity::class.java)
                 val montserrat_bold = FontFamily(Font(R.font.montserrat_medium))
 
@@ -100,6 +104,7 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
+    @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
         if (backPressedTime + 3000 > System.currentTimeMillis()) {
             super.onBackPressed()

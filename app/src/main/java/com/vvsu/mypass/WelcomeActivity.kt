@@ -41,7 +41,7 @@ class WelcomeActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            MyPassTheme() {
+            MyPassTheme {
                 initFirebase()
 
                 val rootRef = FirebaseDatabase.getInstance().reference
@@ -95,7 +95,7 @@ class WelcomeActivity : ComponentActivity() {
                 ) {
                     Text(
                         modifier = Modifier,
-                        text = uid,
+                        text = "Ксения",
                         textAlign = TextAlign.Center,
                         style = MaterialTheme.typography.h4.copy(
                             shadow = Shadow(
