@@ -13,17 +13,6 @@
         android:theme="@style/Theme.MyPass"
         tools:targetApi="31">
         <activity
-            android:name=".SplashActivity"
-            android:exported="true"
-            android:label="@string/app_name"
-            android:theme="@style/Theme.MyPass">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
             android:name=".WelcomeActivity"
             android:launchMode = "singleTop"
             android:exported="true"
@@ -39,7 +28,11 @@
             android:name=".LoginActivity"
             android:launchMode = "singleTop"
             android:exported="true"
-            android:theme="@style/Theme.MyPass">
+            android:theme="@style/splashScreenTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 

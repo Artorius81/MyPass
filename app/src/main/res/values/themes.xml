@@ -3,7 +3,17 @@
 
     <style name="Theme.MyPass" parent="android:Theme.Material.Light.NoActionBar">
         <item name="android:statusBarColor">@color/blue69</item>
+        <item name="android:background">@color/blue69</item>
         <item name="android:windowNoTitle">true</item>
-        <item name="android:windowBackground">@color/blue69</item>
+        <item name="android:windowDisablePreview">true</item>
+
     </style>
+
+    <style name="splashScreenTheme" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:windowBackground">@drawable/spl</item>
+        <item name="android:statusBarColor">@color/blue69</item>
+        <item name="android:windowNoTitle">true</item>
+
+    </style>
+
 </resources>

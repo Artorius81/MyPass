@@ -59,6 +59,7 @@ class LoginActivity : ComponentActivity() {
     private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme(R.style.splashScreenTheme)
         super.onCreate(savedInstanceState)
         setContent {
             MyPassTheme {
@@ -449,7 +450,7 @@ class LoginActivity : ComponentActivity() {
         ) {
             Button(
                 modifier = Modifier,
-                onClick = { context.startActivity(intentVk) },
+                onClick = { startActivity(intentVk) },
                 elevation = ButtonDefaults.elevation(
                     defaultElevation = 0.dp,
                     pressedElevation = 0.dp,
@@ -474,7 +475,7 @@ class LoginActivity : ComponentActivity() {
         ) {
             Button(
                 modifier = Modifier,
-                onClick = { context.startActivity(intentTg) },
+                onClick = { startActivity(intentTg) },
                 elevation = ButtonDefaults.elevation(
                     defaultElevation = 0.dp,
                     pressedElevation = 0.dp,
