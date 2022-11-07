@@ -57,6 +57,7 @@ import compose.icons.feathericons.User
 class LoginActivity : ComponentActivity() {
 
     private lateinit var auth: FirebaseAuth
+    private var backPressedTime: Long = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.splashScreenTheme)
@@ -513,6 +514,17 @@ class LoginActivity : ComponentActivity() {
                 }
             }
         // [END sign_in_with_email]
+    }
+
+    @Deprecated("Deprecated in Java")
+    override fun onBackPressed() {
+        if (backPressedTime + 3000 > System.currentTimeMillis()) {
+            super.onBackPressed()
+            finishAffinity()
+        } else {
+            Toast.makeText(this, "Нажмите второй раз для выхода из приложения", Toast.LENGTH_LONG).show()
+        }
+        backPressedTime = System.currentTimeMillis()
     }
 
     private fun updateUI() {
