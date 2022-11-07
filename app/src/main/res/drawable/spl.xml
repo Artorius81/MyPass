@@ -1,11 +1,5 @@
-<layer-list xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:opacity="opaque">
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:drawable="@color/blue69"/>
-    <item>
-        <bitmap
-            android:gravity="center"
-            android:src="@drawable/splash"
-            tools:ignore="ResourceCycle" />
-    </item>
+    <item android:gravity="center"
+        android:drawable="@drawable/logo" />
 </layer-list>

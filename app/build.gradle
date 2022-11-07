@@ -79,6 +79,7 @@ dependencies {
     implementation "androidx.compose.material:material-icons-extended:$compose_version"
 
     implementation "io.coil-kt:coil-compose:1.4.0"
+    implementation 'com.vmadalin:easypermissions-ktx:1.0.0'
 
     // Import the BoM for the Firebase platform
     implementation platform('com.google.firebase:firebase-bom:31.0.2')

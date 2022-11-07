@@ -29,7 +29,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shadow
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.painterResource
@@ -47,6 +46,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.vvsu.mypass.ui.theme.MyPassTheme
+import com.vvsu.mypass.ui.theme.black
 import com.vvsu.mypass.ui.theme.blue69
 import compose.icons.FeatherIcons
 import compose.icons.feathericons.Key
@@ -93,7 +93,6 @@ class LoginActivity : ComponentActivity() {
         val widthOnTopBar = "                                                         "
         val widthOnBottomBar = "                                                 "
         val uriHandler = LocalUriHandler.current
-        val context = LocalContext.current
         val intentVk =
             remember { Intent(Intent.ACTION_VIEW, Uri.parse("https://vk.com/vvsu_dv")) }
         val intentTg =
@@ -371,16 +370,15 @@ class LoginActivity : ComponentActivity() {
                     .padding(30.dp),
                 onClick = {signIn(email, password)},
                 border = BorderStroke(1.dp, Color.White),
-                shape = RoundedCornerShape(30), // = 30% percent
+                shape = RoundedCornerShape(25), // = 30% percent
                 colors = ButtonDefaults.outlinedButtonColors(
-                    backgroundColor = Color.Transparent,
-                    contentColor = Color.Transparent
+                    backgroundColor = Color.White,
                 ),
             ) {
                 Text(
                     text = "Войти",
                     textAlign = TextAlign.Center,
-                    color = Color.White,
+                    color = black,
                     fontSize = 24.sp,
                     fontFamily = montserrat_bold
                 )
@@ -388,7 +386,7 @@ class LoginActivity : ComponentActivity() {
                     imageVector = FeatherIcons.LogIn,
                     contentDescription = "enterIcon",
                     modifier = Modifier.padding(top = 4.dp, start = 5.dp),
-                    tint = Color(0xFFFFFFFF)
+                    tint = black
                 )
             }
         }
@@ -491,7 +489,6 @@ class LoginActivity : ComponentActivity() {
             }
         }
     }
-
 
     private fun signIn(email: String, password: String) {
         if (email.isEmpty() || password.isEmpty()) {

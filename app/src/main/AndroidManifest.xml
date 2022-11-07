@@ -2,6 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.READ_CALENDAR"
+        tools:ignore="ScopedStorage" />
+    <uses-permission android:name="android.permission.NFC"/>
+    <uses-feature android:name="android.hardware.nfc" android:required="true" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -16,18 +21,21 @@
             android:name=".WelcomeActivity"
             android:launchMode = "singleTop"
             android:exported="true"
-            android:theme="@style/Theme.MyPass">
+            android:screenOrientation="portrait"
+            android:theme="@style/welcomeScreenTheme">
         </activity>
         <activity
             android:name=".MainActivity"
             android:launchMode = "singleTop"
             android:exported="true"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.MyPass">
         </activity>
         <activity
             android:name=".LoginActivity"
             android:launchMode = "singleTop"
             android:exported="true"
+            android:screenOrientation="portrait"
             android:theme="@style/splashScreenTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

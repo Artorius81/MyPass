@@ -5,21 +5,16 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
-import android.view.animation.OvershootInterpolator
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.animation.core.Animatable
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.scale
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shadow
@@ -38,15 +33,20 @@ import com.vvsu.mypass.utils.initFirebase
 class WelcomeActivity : ComponentActivity() {
 
 
+    private val rootRef = FirebaseDatabase.getInstance().reference
+    private val uid = FirebaseAuth.getInstance().currentUser!!.uid
+    private val uidRef = rootRef.child("USERS").child(uid)
+    private val paddingModifier = Modifier.padding(10.dp)
+    private val widthOnTopBar = "                                                         "
+    private val montserrat_italic = FontFamily(Font(R.font.montserrat_lightitalic))
+    private val montserrat_bold = FontFamily(Font(R.font.montserrat_medium))
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             MyPassTheme {
                 initFirebase()
 
-                val rootRef = FirebaseDatabase.getInstance().reference
-                val uid = FirebaseAuth.getInstance().currentUser!!.uid
-                val uidRef = rootRef.child("USERS").child(uid)
                 uidRef.get().addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         val snapshot = task.result
@@ -58,27 +58,6 @@ class WelcomeActivity : ComponentActivity() {
                     }
                 }
 
-
-                val paddingModifier = Modifier.padding(10.dp)
-                val widthOnTopBar = "                                                         "
-                val montserrat_bold = FontFamily(Font(R.font.montserrat_medium))
-                val montserrat_italic = FontFamily(Font(R.font.montserrat_lightitalic))
-
-                val scale = remember {
-                    Animatable(0f)
-                }
-
-                LaunchedEffect(key1 = true) {
-                    scale.animateTo(
-                        targetValue = 1f,
-                        animationSpec = tween(
-                            durationMillis = 300,
-                            easing = {
-                                OvershootInterpolator(0.7f).getInterpolation(it)
-                            })
-                    )
-                }
-
                 Box(
                     modifier = Modifier
                         .fillMaxSize()
@@ -86,33 +65,8 @@ class WelcomeActivity : ComponentActivity() {
                 )
                 Column(
                     modifier = Modifier
-                        .padding(30.dp)
-                        .scale(scale.value)
-                        .width(1500.dp)
-                        .height(270.dp)
-                        .fillMaxWidth()
-                        .wrapContentSize(Alignment.BottomCenter)
-                ) {
-                    Text(
-                        modifier = Modifier,
-                        text = "Ксения",
-                        textAlign = TextAlign.Center,
-                        style = MaterialTheme.typography.h4.copy(
-                            shadow = Shadow(
-                                offset = Offset(2f, 2f),
-                                blurRadius = 1f
-                            ),
-                            color = Color.White,
-                            fontSize = 45.sp,
-                            fontFamily = montserrat_bold
-                        )
-                    )
-                }
-                Column(
-                    modifier = Modifier
                         .height(605.dp)
                         .fillMaxSize()
-                        .scale(scale.value)
                         .padding(5.dp),
                     verticalArrangement = Arrangement.SpaceEvenly,
                     horizontalAlignment = Alignment.CenterHorizontally
@@ -128,9 +82,31 @@ class WelcomeActivity : ComponentActivity() {
                 }
                 Column(
                     modifier = Modifier
+                        .padding(30.dp)
+                        .width(1500.dp)
+                        .height(270.dp)
+                        .fillMaxWidth()
+                        .wrapContentSize(Alignment.BottomCenter)
+                ) {
+                    Text(
+                        modifier = Modifier,
+                        text = "username",
+                        textAlign = TextAlign.Center,
+                        style = MaterialTheme.typography.h4.copy(
+                            shadow = Shadow(
+                                offset = Offset(2f, 2f),
+                                blurRadius = 1f
+                            ),
+                            color = Color.White,
+                            fontSize = 45.sp,
+                            fontFamily = montserrat_bold
+                        )
+                    )
+                }
+                Column(
+                    modifier = Modifier
                         .padding(15.dp)
                         .width(1500.dp)
-                        .scale(scale.value)
                         .height(600.dp)
                         .fillMaxWidth()
                         .wrapContentSize(Alignment.Center)
@@ -156,6 +132,34 @@ class WelcomeActivity : ComponentActivity() {
                     finish()
                 }, 2000)
             }
+        }
+    }
+
+    @Composable
+    private fun Text(username: String) {
+
+        Column(
+            modifier = Modifier
+                .padding(30.dp)
+                .width(1500.dp)
+                .height(270.dp)
+                .fillMaxWidth()
+                .wrapContentSize(Alignment.BottomCenter)
+        ) {
+            Text(
+                modifier = Modifier,
+                text = username,
+                textAlign = TextAlign.Center,
+                style = MaterialTheme.typography.h4.copy(
+                    shadow = Shadow(
+                        offset = Offset(2f, 2f),
+                        blurRadius = 1f
+                    ),
+                    color = Color.White,
+                    fontSize = 45.sp,
+                    fontFamily = montserrat_bold
+                )
+            )
         }
     }
 }
