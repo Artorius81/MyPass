@@ -1,10 +1,8 @@
 package com.vvsu.mypass
 
-import android.content.ContentValues.TAG
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -54,6 +52,7 @@ import compose.icons.feathericons.LogIn
 import compose.icons.feathericons.User
 
 
+@Suppress("DEPRECATION")
 class LoginActivity : ComponentActivity() {
 
     private lateinit var auth: FirebaseAuth
@@ -61,10 +60,10 @@ class LoginActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.splashScreenTheme)
+        auth = Firebase.auth
         super.onCreate(savedInstanceState)
         setContent {
             MyPassTheme {
-                auth = Firebase.auth
 
                 val user = FirebaseAuth.getInstance().currentUser
                 if (user != null) {
@@ -501,13 +500,11 @@ class LoginActivity : ComponentActivity() {
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
-                    Log.d(TAG, "signInWithEmail:success")
                     val intent = Intent(this, WelcomeActivity::class.java)
                     startActivity(intent)
                     updateUI()
                 } else {
                     // If sign in fails, display a message to the user.
-                    Log.w(TAG, "signInWithEmail:failure", task.exception)
                     Toast.makeText(baseContext, "Неверный логин или пароль",
                         Toast.LENGTH_SHORT).show()
                     updateUI()

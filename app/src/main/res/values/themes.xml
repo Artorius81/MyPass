@@ -16,7 +16,6 @@
         <item name="android:statusBarColor">@color/blue69</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:navigationBarColor">@color/blue69</item>
-        <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">true</item>
 
     </style>
 
@@ -26,7 +25,6 @@
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowDisablePreview">true</item>
         <item name="android:navigationBarColor">@color/blue69</item>
-        <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">true</item>
 
     </style>
 

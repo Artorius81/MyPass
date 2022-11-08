@@ -46,6 +46,7 @@ class WelcomeActivity : ComponentActivity() {
         setContent {
             MyPassTheme {
                 initFirebase()
+                WelcomeScreen()
 
                 uidRef.get().addOnCompleteListener { task ->
                     if (task.isSuccessful) {
@@ -57,75 +58,6 @@ class WelcomeActivity : ComponentActivity() {
                         Log.d("TAG", task.exception!!.message!!) //Don't ignore potential errors!
                     }
                 }
-
-                Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .background(blue69),
-                )
-                Column(
-                    modifier = Modifier
-                        .height(605.dp)
-                        .fillMaxSize()
-                        .padding(5.dp),
-                    verticalArrangement = Arrangement.SpaceEvenly,
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Card(
-                        shape = RoundedCornerShape(20.dp),
-                        elevation = 10.dp,
-                        modifier = paddingModifier
-                            .height(2.dp)
-                    ) {
-                        Text(text = widthOnTopBar, modifier = paddingModifier)
-                    }
-                }
-                Column(
-                    modifier = Modifier
-                        .padding(30.dp)
-                        .width(1500.dp)
-                        .height(270.dp)
-                        .fillMaxWidth()
-                        .wrapContentSize(Alignment.BottomCenter)
-                ) {
-                    Text(
-                        modifier = Modifier,
-                        text = "username",
-                        textAlign = TextAlign.Center,
-                        style = MaterialTheme.typography.h4.copy(
-                            shadow = Shadow(
-                                offset = Offset(2f, 2f),
-                                blurRadius = 1f
-                            ),
-                            color = Color.White,
-                            fontSize = 45.sp,
-                            fontFamily = montserrat_bold
-                        )
-                    )
-                }
-                Column(
-                    modifier = Modifier
-                        .padding(15.dp)
-                        .width(1500.dp)
-                        .height(600.dp)
-                        .fillMaxWidth()
-                        .wrapContentSize(Alignment.Center)
-                ) {
-                    Text(
-                        modifier = Modifier,
-                        text = "Добро пожаловать в MyPass",
-                        textAlign = TextAlign.Center,
-                        style = MaterialTheme.typography.h4.copy(
-                            shadow = Shadow(
-                                offset = Offset(2f, 2f),
-                                blurRadius = 1f
-                            ),
-                            color = Color.White,
-                            fontSize = 15.sp,
-                            fontFamily = montserrat_italic
-                        )
-                    )
-                }
                 Handler(Looper.getMainLooper()).postDelayed({
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
@@ -136,8 +68,29 @@ class WelcomeActivity : ComponentActivity() {
     }
 
     @Composable
-    private fun Text(username: String) {
-
+    private fun WelcomeScreen() {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(blue69),
+        )
+        Column(
+            modifier = Modifier
+                .height(605.dp)
+                .fillMaxSize()
+                .padding(5.dp),
+            verticalArrangement = Arrangement.SpaceEvenly,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Card(
+                shape = RoundedCornerShape(20.dp),
+                elevation = 10.dp,
+                modifier = paddingModifier
+                    .height(2.dp)
+            ) {
+                Text(text = widthOnTopBar, modifier = paddingModifier)
+            }
+        }
         Column(
             modifier = Modifier
                 .padding(30.dp)
@@ -148,7 +101,7 @@ class WelcomeActivity : ComponentActivity() {
         ) {
             Text(
                 modifier = Modifier,
-                text = username,
+                text = "username",
                 textAlign = TextAlign.Center,
                 style = MaterialTheme.typography.h4.copy(
                     shadow = Shadow(
@@ -158,6 +111,29 @@ class WelcomeActivity : ComponentActivity() {
                     color = Color.White,
                     fontSize = 45.sp,
                     fontFamily = montserrat_bold
+                )
+            )
+        }
+        Column(
+            modifier = Modifier
+                .padding(15.dp)
+                .width(1500.dp)
+                .height(600.dp)
+                .fillMaxWidth()
+                .wrapContentSize(Alignment.Center)
+        ) {
+            Text(
+                modifier = Modifier,
+                text = "Добро пожаловать в MyPass",
+                textAlign = TextAlign.Center,
+                style = MaterialTheme.typography.h4.copy(
+                    shadow = Shadow(
+                        offset = Offset(2f, 2f),
+                        blurRadius = 1f
+                    ),
+                    color = Color.White,
+                    fontSize = 15.sp,
+                    fontFamily = montserrat_italic
                 )
             )
         }

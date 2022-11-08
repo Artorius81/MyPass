@@ -2,10 +2,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-permission android:name="android.permission.READ_CALENDAR"
-        tools:ignore="ScopedStorage" />
     <uses-permission android:name="android.permission.NFC"/>
     <uses-feature android:name="android.hardware.nfc" android:required="true" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+
+
 
     <application
         android:allowBackup="true"
@@ -22,21 +27,24 @@
             android:launchMode = "singleTop"
             android:exported="true"
             android:screenOrientation="portrait"
-            android:theme="@style/welcomeScreenTheme">
+            android:theme="@style/welcomeScreenTheme"
+            tools:ignore="LockedOrientationActivity">
         </activity>
         <activity
             android:name=".MainActivity"
             android:launchMode = "singleTop"
             android:exported="true"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.MyPass">
+            android:theme="@style/Theme.MyPass"
+            tools:ignore="LockedOrientationActivity">
         </activity>
         <activity
             android:name=".LoginActivity"
             android:launchMode = "singleTop"
             android:exported="true"
             android:screenOrientation="portrait"
-            android:theme="@style/splashScreenTheme">
+            android:theme="@style/splashScreenTheme"
+            tools:ignore="LockedOrientationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
