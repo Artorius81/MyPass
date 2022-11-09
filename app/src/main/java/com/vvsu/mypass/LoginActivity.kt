@@ -86,6 +86,8 @@ class LoginActivity : ComponentActivity() {
         val montserrat_italic = FontFamily(Font(R.font.montserrat_lightitalic))
         val montserrat_bold = FontFamily(Font(R.font.montserrat_medium))
         var password by remember { mutableStateOf(("")) }
+        val intent = Intent(this, Web_Forget::class.java)
+        val intent2 = Intent(this, Web_Reg::class.java)
         var passwordVisible by rememberSaveable { mutableStateOf(false) }
         var email by remember { mutableStateOf(("")) }
         val keyboardController = LocalSoftwareKeyboardController.current
@@ -405,11 +407,7 @@ class LoginActivity : ComponentActivity() {
                 modifier = Modifier,
                 text = annotatedLinkStringPassword,
                 onClick = {
-                    annotatedLinkStringPassword
-                        .getStringAnnotations("URL_Pass", it, it)
-                        .firstOrNull()?.let { stringAnnotation ->
-                            uriHandler.openUri(stringAnnotation.item)
-                        }
+                    startActivity(intent)
                 }
             )
         }
@@ -427,11 +425,7 @@ class LoginActivity : ComponentActivity() {
                 modifier = Modifier,
                 text = annotatedLinkStringReg,
                 onClick = {
-                    annotatedLinkStringReg
-                        .getStringAnnotations("URL_Reg", it, it)
-                        .firstOrNull()?.let { stringAnnotation ->
-                            uriHandler.openUri(stringAnnotation.item)
-                        }
+                    startActivity(intent2)
                 }
             )
         }

@@ -50,6 +50,22 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".Web_Forget"
+            android:launchMode = "singleTop"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/splashScreenTheme"
+            tools:ignore="LockedOrientationActivity">
+        </activity>
+        <activity
+            android:name=".Web_Reg"
+            android:launchMode = "singleTop"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/splashScreenTheme"
+            tools:ignore="LockedOrientationActivity">
+        </activity>
     </application>
 
 

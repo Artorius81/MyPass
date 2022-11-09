@@ -95,6 +95,8 @@ dependencies {
 
     //NavController
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    implementation "com.google.accompanist:accompanist-webview:0.27.0"
 }
 repositories {
     mavenCentral()
