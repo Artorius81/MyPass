@@ -15,9 +15,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Shadow
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.input.*
@@ -62,10 +60,6 @@ class Web_Forget : ComponentActivity() {
                             text = "My.Браузер",
                             textAlign = TextAlign.Center,
                             style = MaterialTheme.typography.h4.copy(
-                                shadow = Shadow(
-                                    offset = Offset(2f, 2f),
-                                    blurRadius = 1f
-                                ),
                                 color = Color.White,
                                 fontSize = 20.sp,
                                 fontFamily = montserrat_bold

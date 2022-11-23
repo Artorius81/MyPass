@@ -2,9 +2,7 @@ package com.vvsu.mypass
 
 
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -24,7 +22,6 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.core.app.ActivityCompat
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.vvsu.mypass.ui.theme.MyPassTheme
@@ -38,7 +35,6 @@ class MainActivity : ComponentActivity() {
     private val montserrat_bold = FontFamily(Font(R.font.montserrat_medium))
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        requestPermission()
         super.onCreate(savedInstanceState)
         setContent {
             MyPassTheme {
@@ -79,7 +75,7 @@ class MainActivity : ComponentActivity() {
                 ),
             ) {
                 Text(
-                    text = "Начать",
+                    text = "Выйти",
                     textAlign = TextAlign.Center,
                     color = black,
                     fontSize = 24.sp,
@@ -98,42 +94,5 @@ class MainActivity : ComponentActivity() {
             Toast.makeText(this, "Нажмите второй раз для выхода из приложения", Toast.LENGTH_LONG).show()
         }
         backPressedTime = System.currentTimeMillis()
-    }
-
-    private fun hasPermission() : Boolean {
-        // It is true when we have a permission
-        return ActivityCompat.checkSelfPermission(this, android.Manifest.permission.READ_CALENDAR) == PackageManager.PERMISSION_GRANTED
-    }
-
-    // Request permission
-    private fun requestPermission() {
-        val permission = mutableListOf<String>()
-
-        if (!hasPermission()) {
-            permission.add(android.Manifest.permission.READ_CALENDAR)
-        }
-        if (permission.isNotEmpty()) {
-            ActivityCompat.requestPermissions(this, permission.toTypedArray(), 0)
-        }
-    }
-
-    @Deprecated("Deprecated in Java", ReplaceWith(
-        "super.onRequestPermissionsResult(requestCode, permissions, grantResults)",
-        "androidx.activity.ComponentActivity"
-    )
-    )
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == 0 && grantResults.isNotEmpty()) {
-            for (i in grantResults.indices) {
-                if (grantResults[i] == PackageManager.PERMISSION_GRANTED) {
-                    Log.d("PermissionsRequested", "${permissions[i]} granted" )
-                }
-            }
-        }
     }
 }

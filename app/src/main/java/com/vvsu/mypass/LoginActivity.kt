@@ -28,7 +28,6 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shadow
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
-import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
@@ -94,7 +93,6 @@ class LoginActivity : ComponentActivity() {
         val paddingModifier = Modifier.padding(10.dp)
         val widthOnTopBar = "                                                         "
         val widthOnBottomBar = "                                                 "
-        val uriHandler = LocalUriHandler.current
         val intentVk =
             remember { Intent(Intent.ACTION_VIEW, Uri.parse("https://vk.com/vvsu_dv")) }
         val intentTg =

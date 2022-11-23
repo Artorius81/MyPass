@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -35,7 +34,7 @@ class WelcomeActivity : ComponentActivity() {
 
     private val rootRef = FirebaseDatabase.getInstance().reference
     private val uid = FirebaseAuth.getInstance().currentUser!!.uid
-    private val uidRef = rootRef.child("USERS").child(uid)
+    private val uidRef = rootRef.child("users").child(uid)
     private val paddingModifier = Modifier.padding(10.dp)
     private val widthOnTopBar = "                                                         "
     private val montserrat_italic = FontFamily(Font(R.font.montserrat_lightitalic))
@@ -54,10 +53,9 @@ class WelcomeActivity : ComponentActivity() {
                         val username = snapshot?.child("name")?.getValue(String::class.java)
                         Toast.makeText(baseContext, "$username",
                             Toast.LENGTH_SHORT).show()
-                    } else {
-                        Log.d("TAG", task.exception!!.message!!) //Don't ignore potential errors!
                     }
                 }
+
                 Handler(Looper.getMainLooper()).postDelayed({
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
@@ -101,7 +99,7 @@ class WelcomeActivity : ComponentActivity() {
         ) {
             Text(
                 modifier = Modifier,
-                text = "Илья",
+                text = "&username",
                 textAlign = TextAlign.Center,
                 style = MaterialTheme.typography.h4.copy(
                     shadow = Shadow(
