@@ -45,6 +45,8 @@ import com.google.firebase.ktx.Firebase
 import com.vvsu.mypass.ui.theme.MyPassTheme
 import com.vvsu.mypass.ui.theme.black
 import com.vvsu.mypass.ui.theme.blue69
+import com.vvsu.mypass.utils.Web_Forget
+import com.vvsu.mypass.utils.Web_Reg
 import compose.icons.FeatherIcons
 import compose.icons.feathericons.Key
 import compose.icons.feathericons.LogIn
@@ -246,7 +248,7 @@ class LoginActivity : ComponentActivity() {
                 label = {
                     Text(
                         text = "Логин",
-                        fontFamily = montserrat_light,
+                        fontFamily = montserrat_bold,
                         color = Color.White,
                         fontSize = 17.sp
                     )
@@ -312,7 +314,7 @@ class LoginActivity : ComponentActivity() {
                 label = {
                     Text(
                         text = "Пароль",
-                        fontFamily = montserrat_light,
+                        fontFamily = montserrat_bold,
                         color = Color.White,
                         fontSize = 17.sp
                     )

@@ -28,8 +28,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.vvsu.mypass.ui.theme.MyPassTheme
-import com.vvsu.mypass.ui.theme.black
 import com.vvsu.mypass.utils.Constants.ROUTE_CUSTOMIZATION
 import com.vvsu.mypass.utils.Constants.ROUTE_HOME
 import com.vvsu.mypass.utils.Constants.ROUTE_SETTING
@@ -54,14 +55,16 @@ class MainActivity : ComponentActivity() {
 
     @Composable
     fun Home() {
-        val intent = Intent(this, LoginActivity::class.java)
-        var interactionSource = remember { MutableInteractionSource() }
+        val interactionSource = remember { MutableInteractionSource() }
 
         var selected_color by remember { mutableStateOf(false) }
         val color = if (selected_color) Color.Red else Color.White
 
         var selected_text by remember { mutableStateOf(false) }
         val text = if (selected_text) Color.White else Color.Black
+
+        val run = if (text == Color.White) "Стоп" else "Запуск"
+
 
         Box(
             modifier = Modifier
@@ -93,15 +96,13 @@ class MainActivity : ComponentActivity() {
                 onClick = {
                     selected_color = !selected_color
                     selected_text = !selected_text
-                    //Firebase.auth.signOut()
-                    //startActivity(intent)
                 },
                 interactionSource = interactionSource,
                 colors = buttonColors(backgroundColor = color),
                 shape = RoundedCornerShape(30), // = 30% percent
             ) {
                 Text(
-                    text = "Запуск",
+                    text = run,
                     textAlign = TextAlign.Center,
                     color = text,
                     fontSize = 24.sp,
@@ -119,14 +120,17 @@ class MainActivity : ComponentActivity() {
             modifier = Modifier.fillMaxSize()
         ) {
             Text(
-                text = "Информация",
+                text = "Изменить",
                 fontFamily = montserrat_light,
-                fontSize = 20.sp)
+                fontSize = 20.sp
+            )
         }
     }
 
     @Composable
     fun Settings() {
+        val intent = Intent(this, LoginActivity::class.java)
+
         Column(
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -147,12 +151,28 @@ class MainActivity : ComponentActivity() {
             shape = RoundedCornerShape(15.dp),
             elevation = 10.dp
         ) {
-            Text(
-                text = "Выйти из учётной записи",
-                fontFamily = montserrat_bold,
-                color = Color.Red,
-                fontSize = 15.sp
-            )
+            Button(
+                modifier = Modifier
+                    .height(120.dp)
+                    .width(230.dp)
+                    .padding(30.dp),
+                colors = ButtonDefaults.outlinedButtonColors(
+                    backgroundColor = Color.White
+                ),
+                onClick = {
+                    Firebase.auth.signOut()
+                    startActivity(intent)
+                },
+                shape = RoundedCornerShape(30), // = 30% percent
+            ) {
+                Text(
+                    text = "Выйти из учётной записи",
+                    textAlign = TextAlign.Center,
+                    color = Color.Black,
+                    fontSize = 17.sp,
+                    fontFamily = montserrat_bold
+                )
+            }
         }
     }
 

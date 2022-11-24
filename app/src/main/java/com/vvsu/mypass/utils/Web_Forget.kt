@@ -1,4 +1,4 @@
-package com.vvsu.mypass
+package com.vvsu.mypass.utils
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -23,17 +23,20 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.google.accompanist.web.*
+import com.vvsu.mypass.LoginActivity
+import com.vvsu.mypass.R
 import com.vvsu.mypass.ui.theme.MyPassTheme
 import com.vvsu.mypass.ui.theme.WhiteCard
 
-class Web_Reg : ComponentActivity() {
+
+class Web_Forget : ComponentActivity() {
     @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             MyPassTheme {
                 val montserrat_bold = FontFamily(Font(R.font.montserrat_medium))
-                var url by remember { mutableStateOf("https://www.vvsu.ru/registration/") }
+                val url by remember { mutableStateOf("https://api.vvsu.ru/services/changepass") }
                 val state = rememberWebViewState(url = url)
                 val intent = Intent(this, LoginActivity::class.java)
                 val navigator = rememberWebViewNavigator()
@@ -78,7 +81,7 @@ class Web_Reg : ComponentActivity() {
                             IconButton(onClick = { startActivity(intent) }) {
                                 Icon(
                                     imageVector = Icons.Default.Check,
-                                    contentDescription = "Вперёд"
+                                    contentDescription = "Go"
                                 )
                             }
                         }

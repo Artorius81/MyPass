@@ -55,7 +55,7 @@ class WelcomeActivity : ComponentActivity() {
                     }
                 }
 
-                WelcomeScreen(userName)
+                WelcomeScreen(userName = userName)
 
                 Handler(Looper.getMainLooper()).postDelayed({
                     val intent = Intent(this, MainActivity::class.java)
@@ -67,7 +67,7 @@ class WelcomeActivity : ComponentActivity() {
     }
 
     @Composable
-    private fun WelcomeScreen(userName: String) {
+    private fun WelcomeScreen(userName: String){
         Box(
             modifier = Modifier
                 .fillMaxSize()

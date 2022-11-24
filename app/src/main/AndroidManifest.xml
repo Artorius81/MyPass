@@ -51,7 +51,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Web_Forget"
+            android:name=".utils.Web_Forget"
             android:launchMode = "singleTop"
             android:exported="true"
             android:screenOrientation="portrait"
@@ -59,7 +59,7 @@
             tools:ignore="LockedOrientationActivity">
         </activity>
         <activity
-            android:name=".Web_Reg"
+            android:name=".utils.Web_Reg"
             android:launchMode = "singleTop"
             android:exported="true"
             android:screenOrientation="portrait"
