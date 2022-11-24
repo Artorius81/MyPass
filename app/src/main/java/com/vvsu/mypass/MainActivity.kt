@@ -7,13 +7,14 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.animation.Animatable
-import androidx.compose.animation.core.tween
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
+import androidx.compose.material.ButtonDefaults.buttonColors
+import androidx.compose.material.MaterialTheme.colors
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -22,17 +23,13 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.compose.currentBackStackEntryAsState
-import androidx.navigation.compose.rememberNavController
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
-import com.vvsu.mypass.ui.theme.MyPassTheme
-import com.vvsu.mypass.ui.theme.black
-import androidx.compose.material.MaterialTheme.colors
-import androidx.compose.runtime.*
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.compose.rememberNavController
+import com.vvsu.mypass.ui.theme.MyPassTheme
+import com.vvsu.mypass.ui.theme.black
 import com.vvsu.mypass.utils.Constants.ROUTE_CUSTOMIZATION
 import com.vvsu.mypass.utils.Constants.ROUTE_HOME
 import com.vvsu.mypass.utils.Constants.ROUTE_SETTING
@@ -58,20 +55,22 @@ class MainActivity : ComponentActivity() {
     @Composable
     fun Home() {
         val intent = Intent(this, LoginActivity::class.java)
+        var interactionSource = remember { MutableInteractionSource() }
 
-        var isAnimated by remember { mutableStateOf(false) }
-        val color = remember { Animatable(Color.DarkGray) }
+        var selected_color by remember { mutableStateOf(false) }
+        val color = if (selected_color) Color.Red else Color.White
 
-        LaunchedEffect(isAnimated) {
-            color.animateTo(if (isAnimated) Color.White else Color.Red, animationSpec = tween(100))
-        }
+        var selected_text by remember { mutableStateOf(false) }
+        val text = if (selected_text) Color.White else Color.Black
 
-        Box(modifier = Modifier
-            .fillMaxSize()
-            .background(Color.White),
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color.White),
         )
         Card(
-            modifier = Modifier.padding(top=80.dp)
+            modifier = Modifier
+                .padding(top = 80.dp)
                 .fillMaxWidth()
                 .padding(20.dp)
                 .size(170.dp),
@@ -92,20 +91,19 @@ class MainActivity : ComponentActivity() {
                     .width(230.dp)
                     .padding(30.dp),
                 onClick = {
-                    isAnimated = !isAnimated
+                    selected_color = !selected_color
+                    selected_text = !selected_text
                     //Firebase.auth.signOut()
                     //startActivity(intent)
                 },
-                border = BorderStroke(1.dp, Color.White),
+                interactionSource = interactionSource,
+                colors = buttonColors(backgroundColor = color),
                 shape = RoundedCornerShape(30), // = 30% percent
-                colors = ButtonDefaults.outlinedButtonColors(
-                    backgroundColor = Color.White,
-                ),
             ) {
                 Text(
                     text = "Запуск",
                     textAlign = TextAlign.Center,
-                    color = black,
+                    color = text,
                     fontSize = 24.sp,
                     fontFamily = montserrat_bold
                 )
@@ -138,6 +136,22 @@ class MainActivity : ComponentActivity() {
                 text = "Настройки",
                 fontFamily = montserrat_light,
                 fontSize = 20.sp
+            )
+        }
+        Card(
+            modifier = Modifier
+                .padding(top = 80.dp)
+                .fillMaxWidth()
+                .padding(20.dp)
+                .size(170.dp),
+            shape = RoundedCornerShape(15.dp),
+            elevation = 10.dp
+        ) {
+            Text(
+                text = "Выйти из учётной записи",
+                fontFamily = montserrat_bold,
+                color = Color.Red,
+                fontSize = 15.sp
             )
         }
     }

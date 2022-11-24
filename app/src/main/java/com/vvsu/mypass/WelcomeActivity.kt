@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
@@ -12,6 +11,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
@@ -46,7 +46,7 @@ class WelcomeActivity : ComponentActivity() {
             MyPassTheme {
                 initFirebase()
 
-                var userName by remember { mutableStateOf("") }
+                var userName by rememberSaveable { mutableStateOf("") }
 
                 uidRef.get().addOnCompleteListener { task ->
                     if (task.isSuccessful) {
@@ -61,7 +61,7 @@ class WelcomeActivity : ComponentActivity() {
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
                     finish()
-                }, 2000)
+                }, 1800)
             }
         }
     }

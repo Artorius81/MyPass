@@ -29,7 +29,7 @@
     </style>
 
     <style name="mainTheme" parent="android:Theme.Material.Light.NoActionBar">
-        <item name="android:statusBarColor">#DDDDDD</item>
+        <item name="android:statusBarColor">#9F9F9F</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:navigationBarColor">@color/white</item>
 
