@@ -35,7 +35,7 @@
             android:launchMode = "singleTop"
             android:exported="true"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.MyPass"
+            android:theme="@style/mainTheme"
             tools:ignore="LockedOrientationActivity">
         </activity>
         <activity

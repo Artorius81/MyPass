@@ -11,7 +11,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
@@ -45,16 +45,17 @@ class WelcomeActivity : ComponentActivity() {
         setContent {
             MyPassTheme {
                 initFirebase()
-                WelcomeScreen()
+
+                var userName by remember { mutableStateOf("") }
 
                 uidRef.get().addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         val snapshot = task.result
-                        val username = snapshot?.child("name")?.getValue(String::class.java)
-                        Toast.makeText(baseContext, "$username",
-                            Toast.LENGTH_SHORT).show()
+                        userName = snapshot?.child("name")?.getValue(String::class.java)!!
                     }
                 }
+
+                WelcomeScreen(userName)
 
                 Handler(Looper.getMainLooper()).postDelayed({
                     val intent = Intent(this, MainActivity::class.java)
@@ -66,7 +67,7 @@ class WelcomeActivity : ComponentActivity() {
     }
 
     @Composable
-    private fun WelcomeScreen() {
+    private fun WelcomeScreen(userName: String) {
         Box(
             modifier = Modifier
                 .fillMaxSize()
@@ -99,7 +100,7 @@ class WelcomeActivity : ComponentActivity() {
         ) {
             Text(
                 modifier = Modifier,
-                text = "&username",
+                text = userName,
                 textAlign = TextAlign.Center,
                 style = MaterialTheme.typography.h4.copy(
                     shadow = Shadow(

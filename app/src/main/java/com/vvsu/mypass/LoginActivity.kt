@@ -81,7 +81,7 @@ class LoginActivity : ComponentActivity() {
     @OptIn(ExperimentalComposeUiApi::class)
     private fun LoginScreen() {
 
-        val montserrat_light = FontFamily(Font(R.font.montserrat_medium))
+        val montserrat_light = FontFamily(Font(R.font.montserrat_light))
         val montserrat_italic = FontFamily(Font(R.font.montserrat_lightitalic))
         val montserrat_bold = FontFamily(Font(R.font.montserrat_medium))
         var password by remember { mutableStateOf(("")) }

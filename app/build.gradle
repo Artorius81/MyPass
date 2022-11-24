@@ -101,6 +101,8 @@ dependencies {
 
     implementation "com.google.accompanist:accompanist-webview:0.27.0"
 
+    implementation "androidx.navigation:navigation-compose:2.4.0-alpha07"
+
 }
 repositories {
     mavenCentral()
