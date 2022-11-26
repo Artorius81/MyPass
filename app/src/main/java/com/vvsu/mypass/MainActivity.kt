@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
@@ -15,9 +16,12 @@ import androidx.compose.material.*
 import androidx.compose.material.ButtonDefaults.buttonColors
 import androidx.compose.material.MaterialTheme.colors
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
@@ -28,9 +32,14 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import coil.annotation.ExperimentalCoilApi
+import coil.compose.SubcomposeAsyncImage
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
 import com.vvsu.mypass.ui.theme.MyPassTheme
+import com.vvsu.mypass.ui.theme.blue69
 import com.vvsu.mypass.utils.Constants.ROUTE_CUSTOMIZATION
 import com.vvsu.mypass.utils.Constants.ROUTE_HOME
 import com.vvsu.mypass.utils.Constants.ROUTE_SETTING
@@ -44,17 +53,42 @@ class MainActivity : ComponentActivity() {
     private val montserrat_light = FontFamily(Font(R.font.montserrat_light))
     private val montserrat_bold = FontFamily(Font(R.font.montserrat_medium))
 
+    private val rootRef = FirebaseDatabase.getInstance().reference
+    private val uid = FirebaseAuth.getInstance().currentUser!!.uid
+    private val uidRef = rootRef.child("users").child(uid)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             MyPassTheme {
-                NavigationController()
+
+                var userName by rememberSaveable { mutableStateOf("") }
+                var userSurname by rememberSaveable { mutableStateOf("") }
+                var userPatronymic by rememberSaveable { mutableStateOf("") }
+                var userPhoto by rememberSaveable { mutableStateOf("") }
+
+                uidRef.get().addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        val snapshot = task.result
+                        userName = snapshot?.child("name")?.getValue(String::class.java)!!
+                        userSurname = snapshot.child("surname").getValue(String::class.java)!!
+                        userPatronymic = snapshot.child("patronymic").getValue(String::class.java)!!
+                        userPhoto = snapshot.child("photo_url").getValue(String::class.java)!!
+                    }
+                }
+                NavigationController(
+                    userName,
+                    userSurname,
+                    userPatronymic,
+                    userPhoto
+                )
             }
         }
     }
 
+    @ExperimentalCoilApi
     @Composable
-    fun Home() {
+    fun Home(userName: String, userSurname: String, userPatronymic: String, userPhoto: String) {
         val interactionSource = remember { MutableInteractionSource() }
 
         var selected_color by remember { mutableStateOf(false) }
@@ -79,7 +113,77 @@ class MainActivity : ComponentActivity() {
                 .size(170.dp),
             shape = RoundedCornerShape(15.dp),
             elevation = 10.dp
-        ) {}
+        ) {
+            Divider(
+                color = blue69,
+                modifier = Modifier
+                    .padding(start = 240.dp, end = 20.dp)
+                    .width(1.dp)
+            )
+            Column(modifier = Modifier
+                .padding(start = 242.dp, end = 20.dp)
+                .width(100.dp)
+                .height(120.dp)
+                .fillMaxWidth()
+            ) {
+                Image(
+                    painterResource(R.drawable.logo_white),
+                    contentDescription = "vvsu_logo",
+                    modifier = Modifier.requiredSize(55.dp)
+                )
+            }
+            Column(modifier = Modifier
+                .padding(start = 10.dp, top = 10.dp)
+                .width(100.dp)
+                .height(120.dp)
+                .fillMaxWidth()
+            ) {
+                SubcomposeAsyncImage(
+                    model = userPhoto,
+                    contentDescription = null,
+                    loading = {
+                        CircularProgressIndicator(
+                            modifier = Modifier.size(1.dp).width(4.dp),
+                            color = blue69,
+                            strokeWidth = 3.dp
+                        )
+                    },
+                    modifier = Modifier.requiredSize(70.dp).clip(RoundedCornerShape(20))
+                )
+            }
+            Column(modifier = Modifier
+                .fillMaxWidth()
+            ) {
+                Text(modifier = Modifier
+                    .padding(start = 80.dp, top = 15.dp),
+                    text = userSurname,
+                    color = Color.Black,
+                    fontSize = 15.sp,
+                    fontFamily = montserrat_bold
+                )
+                Text(modifier = Modifier
+                    .padding(start = 80.dp, top = 0.5.dp),
+                    text = userName,
+                    color = Color.Black,
+                    fontSize = 15.sp,
+                    fontFamily = montserrat_bold
+                )
+                Text(modifier = Modifier
+                    .padding(start = 80.dp, top = 0.5.dp),
+                    text = userPatronymic,
+                    color = Color.Black,
+                    fontSize = 15.sp,
+                    fontFamily = montserrat_bold
+                )
+                Text(modifier = Modifier
+                    .padding(start = 10.dp, top = 10.dp),
+                    text = "Студент",
+                    color = blue69,
+                    fontSize = 15.sp,
+                    fontFamily = montserrat_bold
+                )
+            }
+        }
         Column(
             modifier = Modifier
                 .padding(80.dp)
@@ -178,7 +282,7 @@ class MainActivity : ComponentActivity() {
 
     @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
     @Composable
-    fun NavigationController() {
+    private fun NavigationController(userName: String, userSurname: String, userPatronymic: String, userPhoto: String) {
 
         val navController = rememberNavController()
 
@@ -188,17 +292,17 @@ class MainActivity : ComponentActivity() {
                     backgroundColor = colors.background,
                     elevation = 16.dp
                 ) {
-                    val navBackStackEntry by navController.currentBackStackEntryAsState()           //when ever backStack changes it will recompose itself
-                    val currentRoute = navBackStackEntry?.destination?.route                        //fetching current backStack entry
+                    val navBackStackEntry by navController.currentBackStackEntryAsState()
+                    val currentRoute = navBackStackEntry?.destination?.route
 
                     items.forEach {
                         BottomNavigationItem(
-                            icon = {                                                                //bottom nav icon
+                            icon = {
                                 Icon(imageVector = it.icon, contentDescription = "",tint = if (currentRoute == it.route) Color.DarkGray else Color.LightGray)
                             },
-                            selected = currentRoute == it.route,                                    //current destination that is visible to user
+                            selected = currentRoute == it.route,
                             label = {
-                                Text(                                                               //bottom nav text
+                                Text(
                                     text = it.label,
                                     color = if (currentRoute == it.route) Color.DarkGray else Color.LightGray,
                                     maxLines = 1,
@@ -207,36 +311,47 @@ class MainActivity : ComponentActivity() {
                                 )
                             },
                             onClick = {
-                                if (currentRoute != it.route) {                                     //current route is not equal to same route
-                                    navController.graph.startDestinationRoute?.let { item ->        //then handle back press
+                                if (currentRoute != it.route) {
+                                    navController.graph.startDestinationRoute?.let { item ->
                                         navController.popBackStack(
                                             item, false
                                         )
                                     }
                                 }
-                                if (currentRoute != it.route) {                                     //condition to check current route is not equal to screens route
+                                if (currentRoute != it.route) {
                                     navController.navigate(it.route)
                                 }
                             },
-                            alwaysShowLabel = false,                                                 // showing/hiding title text
-                            selectedContentColor = colors.secondary,                  // ripple color
+                            alwaysShowLabel = false,
+                            selectedContentColor = colors.secondary,
                         )
                     }
 
                 }
             }
         ) {
-            ScreenController(navController = navController)
+            ScreenController(
+                navController = navController,
+                userName = userName,
+                userSurname = userSurname,
+                userPatronymic = userPatronymic,
+                userPhoto = userPhoto
+            )
         }
     }
 
+    @OptIn(ExperimentalCoilApi::class)
     @Composable
     fun ScreenController(
-        navController: NavHostController
+        navController: NavHostController,
+        userName: String,
+        userSurname: String,
+        userPatronymic: String,
+        userPhoto: String
     ) {
         NavHost(navController = navController, startDestination = ROUTE_HOME) {
             composable(ROUTE_HOME) {
-                Home()
+                Home(userName, userSurname, userPatronymic, userPhoto)
             }
             composable(ROUTE_CUSTOMIZATION) {
                 Customization()

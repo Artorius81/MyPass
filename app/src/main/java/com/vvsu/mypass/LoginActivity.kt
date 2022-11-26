@@ -1,6 +1,8 @@
 package com.vvsu.mypass
 
+import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
 import android.net.Uri
 import android.os.Bundle
 import android.widget.Toast
@@ -489,6 +491,10 @@ class LoginActivity : ComponentActivity() {
             Toast.makeText(this, "Все поля должны быть заполнены", Toast.LENGTH_SHORT).show()
             return
         }
+        if (!isConnectedToNetwork()) {
+            Toast.makeText(this, "Нет подключения к сети Интернет", Toast.LENGTH_SHORT).show()
+            return
+        }
         // [START sign_in_with_email]
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
@@ -502,6 +508,9 @@ class LoginActivity : ComponentActivity() {
                     Toast.makeText(baseContext, "Неверный логин или пароль",
                         Toast.LENGTH_SHORT).show()
                     updateUI()
+                }
+                if (!isConnectedToNetwork()) {
+                    Toast.makeText(this, "Нет подключения к сети Интернет", Toast.LENGTH_SHORT).show()
                 }
             }
         // [END sign_in_with_email]
@@ -521,4 +530,10 @@ class LoginActivity : ComponentActivity() {
     private fun updateUI() {
 
     }
+
+    fun Context.isConnectedToNetwork(): Boolean {
+        val connectivityManager = this.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager?
+        return connectivityManager?.activeNetworkInfo?.isConnectedOrConnecting ?: false
+    }
+
 }
