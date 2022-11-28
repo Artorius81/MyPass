@@ -6,10 +6,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
+import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
+import androidx.activity.result.PickVisualMediaRequest
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
@@ -22,6 +24,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
@@ -37,13 +41,16 @@ import coil.compose.SubcomposeAsyncImage
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestoreSettings
 import com.google.firebase.ktx.Firebase
-import com.vvsu.mypass.ui.theme.MyPassTheme
-import com.vvsu.mypass.ui.theme.blue69
+import com.vvsu.mypass.ui.theme.*
 import com.vvsu.mypass.utils.Constants.ROUTE_CUSTOMIZATION
 import com.vvsu.mypass.utils.Constants.ROUTE_HOME
 import com.vvsu.mypass.utils.Constants.ROUTE_SETTING
 import com.vvsu.mypass.utils.Screens.Items.items
+import compose.icons.FeatherIcons
+import compose.icons.feathericons.*
 
 
 @Suppress("DEPRECATION")
@@ -52,6 +59,8 @@ class MainActivity : ComponentActivity() {
     private var backPressedTime: Long = 0
     private val montserrat_light = FontFamily(Font(R.font.montserrat_light))
     private val montserrat_bold = FontFamily(Font(R.font.montserrat_medium))
+    private val montserrat_italic = FontFamily(Font(R.font.montserrat_lightitalic))
+    private val montserrat_mediumItalic = FontFamily(Font(R.font.montserrat_mediumitalic))
 
     private val rootRef = FirebaseDatabase.getInstance().reference
     private val uid = FirebaseAuth.getInstance().currentUser!!.uid
@@ -62,49 +71,62 @@ class MainActivity : ComponentActivity() {
         setContent {
             MyPassTheme {
 
-                var userName by rememberSaveable { mutableStateOf("") }
-                var userSurname by rememberSaveable { mutableStateOf("") }
-                var userPatronymic by rememberSaveable { mutableStateOf("") }
-                var userPhoto by rememberSaveable { mutableStateOf("") }
+                val db = FirebaseFirestore.getInstance()
 
-                uidRef.get().addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        val snapshot = task.result
-                        userName = snapshot?.child("name")?.getValue(String::class.java)!!
-                        userSurname = snapshot.child("surname").getValue(String::class.java)!!
-                        userPatronymic = snapshot.child("patronymic").getValue(String::class.java)!!
-                        userPhoto = snapshot.child("photo_url").getValue(String::class.java)!!
-                    }
+                val settings = firestoreSettings {
+                    isPersistenceEnabled = true
                 }
-                NavigationController(
-                    userName,
-                    userSurname,
-                    userPatronymic,
-                    userPhoto
-                )
+                db.firestoreSettings = settings
+
+                NavigationController()
             }
         }
     }
 
     @ExperimentalCoilApi
     @Composable
-    fun Home(userName: String, userSurname: String, userPatronymic: String, userPhoto: String) {
-        val interactionSource = remember { MutableInteractionSource() }
+    fun Home(userName: String, userSurname: String, userPatronymic: String, userPhoto: String, userSpecialty: String, userCourse: String, userDegree: String, userDepartment: String) {
 
-        var selected_color by remember { mutableStateOf(false) }
-        val color = if (selected_color) Color.Red else Color.White
+        Box(modifier = Modifier
+            .fillMaxSize()
+            .background(WhiteCard))
 
-        var selected_text by remember { mutableStateOf(false) }
-        val text = if (selected_text) Color.White else Color.Black
-
-        val run = if (text == Color.White) "Стоп" else "Запуск"
-
-
-        Box(
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
                 .fillMaxSize()
-                .background(Color.White),
-        )
+                .padding(top = 20.dp, start = 20.dp)
+        ) {
+            Row(modifier = Modifier) {
+                Column(modifier = Modifier.weight(1f)) {
+                    Text(
+                        text = "Пропуск",
+                        color = black,
+                        fontFamily = montserrat_bold,
+                        fontSize = 24.sp
+                    )
+                }
+            }
+        }
+
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(top = 20.dp, start = 200.dp)
+        ) {
+            Row(modifier = Modifier) {
+                Column(modifier = Modifier.weight(1f)) {
+                    Text(
+                        text = if (userName == "Ксения") "Доцент" else "Студент",
+                        color = blue69,
+                        fontSize = 24.sp,
+                        fontFamily = montserrat_bold
+                    )
+                }
+            }
+        }
+
         Card(
             modifier = Modifier
                 .padding(top = 80.dp)
@@ -117,25 +139,23 @@ class MainActivity : ComponentActivity() {
             Divider(
                 color = blue69,
                 modifier = Modifier
-                    .padding(start = 240.dp, end = 20.dp)
+                    .padding(start = 260.dp, end = 20.dp)
                     .width(1.dp)
             )
             Column(modifier = Modifier
-                .padding(start = 242.dp, end = 20.dp)
-                .width(100.dp)
-                .height(120.dp)
+                .padding(start = 262.dp, end = 20.dp)
+                .width(100.dp).height(120.dp)
                 .fillMaxWidth()
             ) {
                 Image(
                     painterResource(R.drawable.logo_white),
                     contentDescription = "vvsu_logo",
-                    modifier = Modifier.requiredSize(55.dp)
+                    modifier = Modifier.requiredSize(35.dp)
                 )
             }
             Column(modifier = Modifier
                 .padding(start = 10.dp, top = 10.dp)
-                .width(100.dp)
-                .height(120.dp)
+                .width(100.dp).height(120.dp)
                 .fillMaxWidth()
             ) {
                 SubcomposeAsyncImage(
@@ -143,44 +163,59 @@ class MainActivity : ComponentActivity() {
                     contentDescription = null,
                     loading = {
                         CircularProgressIndicator(
-                            modifier = Modifier.size(1.dp).width(4.dp),
+                            modifier = Modifier.size(1.dp).width(1.dp),
                             color = blue69,
                             strokeWidth = 3.dp
                         )
                     },
-                    modifier = Modifier.requiredSize(70.dp).clip(RoundedCornerShape(20))
+                    modifier = Modifier
+                        .requiredSize(70.dp)
+                        .clip(RoundedCornerShape(20))
                 )
             }
-            Column(modifier = Modifier
-                .fillMaxWidth()
+            Column(modifier = Modifier.fillMaxWidth()
             ) {
-                Text(modifier = Modifier
-                    .padding(start = 80.dp, top = 15.dp),
+                Text(modifier = Modifier.padding(start = 80.dp, top = 13.dp),
                     text = userSurname,
-                    color = Color.Black,
-                    fontSize = 15.sp,
+                    color = black,
+                    fontSize = 16.sp,
                     fontFamily = montserrat_bold
                 )
-                Text(modifier = Modifier
-                    .padding(start = 80.dp, top = 0.5.dp),
+                Text(modifier = Modifier.padding(start = 80.dp, top = 0.5.dp),
                     text = userName,
-                    color = Color.Black,
-                    fontSize = 15.sp,
+                    color = black,
+                    fontSize = 16.sp,
                     fontFamily = montserrat_bold
                 )
-                Text(modifier = Modifier
-                    .padding(start = 80.dp, top = 0.5.dp),
+                Text(modifier = Modifier.padding(start = 80.dp, top = 0.5.dp),
                     text = userPatronymic,
-                    color = Color.Black,
-                    fontSize = 15.sp,
+                    color = black,
+                    fontSize = 16.sp,
                     fontFamily = montserrat_bold
                 )
-                Text(modifier = Modifier
-                    .padding(start = 10.dp, top = 10.dp),
-                    text = "Студент",
-                    color = blue69,
-                    fontSize = 15.sp,
+                Text(modifier = Modifier.padding(start = 10.dp, top = 6.dp),
+                    text = if (userName == "Ксения") "Кафедра" else "Специальность",
+                    color = black,
+                    fontSize = 13.sp,
                     fontFamily = montserrat_bold
+                )
+                Text(modifier = Modifier.padding(start = 10.dp),
+                    text = if (userName == "Ксения") userDepartment else userSpecialty,
+                    color = black,
+                    fontSize = 12.sp,
+                    fontFamily = montserrat_italic
+                )
+                Text(modifier = Modifier.padding(start = 10.dp, top = 4.dp),
+                    text = if (userName == "Ксения") "Учёная степень" else "Группа",
+                    color = black,
+                    fontSize = 13.sp,
+                    fontFamily = montserrat_bold
+                )
+                Text(modifier = Modifier.padding(start = 10.dp),
+                    text = if (userName == "Ксения") userDegree else userCourse,
+                    color = black,
+                    fontSize = 12.sp,
+                    fontFamily = montserrat_italic
                 )
             }
         }
@@ -197,18 +232,14 @@ class MainActivity : ComponentActivity() {
                     .height(120.dp)
                     .width(230.dp)
                     .padding(30.dp),
-                onClick = {
-                    selected_color = !selected_color
-                    selected_text = !selected_text
-                },
-                interactionSource = interactionSource,
-                colors = buttonColors(backgroundColor = color),
+                onClick = {},
+                colors = buttonColors(backgroundColor = Color.White),
                 shape = RoundedCornerShape(30), // = 30% percent
             ) {
                 Text(
-                    text = run,
+                    text = "Запуск",
                     textAlign = TextAlign.Center,
-                    color = text,
+                    color = black,
                     fontSize = 24.sp,
                     fontFamily = montserrat_bold
                 )
@@ -218,16 +249,214 @@ class MainActivity : ComponentActivity() {
 
     @Composable
     fun Customization() {
-        Column(
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.fillMaxSize()
+
+        var imageUri: Any? by remember { mutableStateOf(R.drawable.icon) }
+        val photoPicker = rememberLauncherForActivityResult(
+            contract = ActivityResultContracts.PickVisualMedia()
         ) {
-            Text(
-                text = "Изменить",
-                fontFamily = montserrat_light,
-                fontSize = 20.sp
-            )
+            if (it != null) {
+                imageUri = it
+            }
+        }
+
+        Box(modifier = Modifier.fillMaxSize().background(WhiteCard))
+
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier.fillMaxSize().padding(top = 20.dp, start = 20.dp)
+        ) {
+            Row(modifier = Modifier) {
+                Column(modifier = Modifier.weight(1f)) {
+                    Text(
+                        text = "Кастомизация",
+                        color = black,
+                        fontFamily = montserrat_bold,
+                        fontSize = 24.sp
+                    )
+                }
+            }
+        }
+
+        Column(
+            //verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier.fillMaxSize().padding(top = 80.dp)
+        ) {
+            Card(
+                shape = RoundedCornerShape(14.dp),
+                elevation = 10.dp,
+                backgroundColor = Color.White,
+                modifier = Modifier.padding(10.dp).width(290.dp)
+            ) {
+                Column(
+                    modifier = Modifier.fillMaxWidth().padding(10.dp),
+                ) {
+                    Row(modifier = Modifier) {
+                        Column(modifier = Modifier.weight(1f)) {
+                            Text(
+                                text = "Сменить фото профиля",
+                                color = black,
+                                fontFamily = montserrat_bold,
+                                fontSize = 15.sp
+                            )
+                            Text(
+                                text = "Выбрать фото из галереи",
+                                color = black,
+                                fontFamily = montserrat_italic,
+                                fontSize = 10.sp
+                                )
+
+                        }
+                        IconButton(
+                            onClick = {
+                                photoPicker.launch(
+                                    PickVisualMediaRequest(
+                                        ActivityResultContracts.PickVisualMedia.ImageOnly
+                                    )
+                                )
+                            },
+                            modifier = Modifier.background(
+                                color = blue69,
+                                shape = RoundedCornerShape(10.dp)
+                            )
+                        ) {
+                            Icon(FeatherIcons.Camera, tint = Color.White,  contentDescription = null)
+                        }
+                    }
+                }
+            }
+        }
+
+        Column(
+            //verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier.fillMaxSize().padding(top = 160.dp)
+        ) {
+            Card(
+                shape = RoundedCornerShape(14.dp),
+                elevation = 10.dp,
+                backgroundColor = Color.White,
+                modifier = Modifier.padding(10.dp).width(290.dp)
+            ) {
+                Column(
+                    modifier = Modifier.fillMaxWidth().padding(10.dp),
+                ) {
+                    Row(modifier = Modifier) {
+                        Column(modifier = Modifier.weight(1f)) {
+                            Text(
+                                text = "Сменить фон пропуска",
+                                color = black,
+                                fontFamily = montserrat_bold,
+                                fontSize = 15.sp
+                            )
+                            Text(
+                                text = "Выбрать цвет из палитры",
+                                color = black,
+                                fontFamily = montserrat_italic,
+                                fontSize = 10.sp
+                            )
+
+                        }
+                        IconButton(
+                            onClick = { },
+                            modifier = Modifier.background(
+                                color = blue69,
+                                shape = RoundedCornerShape(10.dp)
+                            )
+                        ) {
+                            Icon(FeatherIcons.Edit2, tint = Color.White,  contentDescription = null)
+                        }
+                    }
+                }
+            }
+        }
+
+        Column(
+            //verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier.fillMaxSize().padding(top = 240.dp)
+        ) {
+            Card(
+                shape = RoundedCornerShape(14.dp),
+                elevation = 10.dp,
+                backgroundColor = Color.White,
+                modifier = Modifier.padding(10.dp).width(290.dp)
+            ) {
+                Column(
+                    modifier = Modifier.fillMaxWidth().padding(10.dp),
+                ) {
+                    Row(modifier = Modifier) {
+                        Column(modifier = Modifier.weight(1f)) {
+                            Text(
+                                text = "Сменить шрифт",
+                                color = black,
+                                fontFamily = montserrat_bold,
+                                fontSize = 15.sp
+                            )
+                            Text(
+                                text = "Загрузить шрифт со смартфона",
+                                color = black,
+                                fontFamily = montserrat_italic,
+                                fontSize = 10.sp
+                            )
+
+                        }
+                        IconButton(
+                            onClick = {},
+                            modifier = Modifier.background(
+                                color = blue69,
+                                shape = RoundedCornerShape(10.dp)
+                            )
+                        ) {
+                            Icon(FeatherIcons.PlusCircle, tint = Color.White,  contentDescription = null)
+                        }
+                    }
+                }
+            }
+        }
+
+        Column(
+            //verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier.fillMaxSize().padding(top = 450.dp)
+        ) {
+            Card(
+                shape = RoundedCornerShape(14.dp),
+                elevation = 10.dp,
+                backgroundColor = Color.White,
+                modifier = Modifier.padding(10.dp).width(290.dp)
+            ) {
+                Column(
+                    modifier = Modifier.fillMaxWidth().padding(10.dp),
+                ) {
+                    Row(modifier = Modifier) {
+                        Column(modifier = Modifier.weight(1f)) {
+                            Text(
+                                text = "Сбросить дизайн",
+                                color = RedPass,
+                                fontFamily = montserrat_bold,
+                                fontSize = 15.sp
+                            )
+                            Text(
+                                text = "Вернёт дизайн по-умолчанию",
+                                color = RedPass,
+                                fontFamily = montserrat_italic,
+                                fontSize = 10.sp
+                            )
+
+                        }
+                        IconButton(
+                            onClick = { },
+                            modifier = Modifier.background(
+                                color = RedPass,
+                                shape = RoundedCornerShape(10.dp)
+                            )
+                        ) {
+                            Icon(FeatherIcons.RefreshCw, tint = Color.White,  contentDescription = null)
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -235,56 +464,149 @@ class MainActivity : ComponentActivity() {
     fun Settings() {
         val intent = Intent(this, LoginActivity::class.java)
 
+        Box(modifier = Modifier.fillMaxSize().background(WhiteCard))
+
         Column(
-            verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier.fillMaxSize().padding(top = 20.dp, start = 20.dp)
         ) {
-            Text(
-                text = "Настройки",
-                fontFamily = montserrat_light,
-                fontSize = 20.sp
-            )
+            Row(modifier = Modifier) {
+                Column(modifier = Modifier.weight(1f)) {
+                    Text(
+                        text = "Настройки",
+                        color = black,
+                        fontFamily = montserrat_bold,
+                        fontSize = 24.sp
+                    )
+                }
+            }
         }
-        Card(
-            modifier = Modifier
-                .padding(top = 80.dp)
-                .fillMaxWidth()
-                .padding(20.dp)
-                .size(170.dp),
-            shape = RoundedCornerShape(15.dp),
-            elevation = 10.dp
+
+        Column(
+            //verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier.fillMaxSize().padding(top = 360.dp)
         ) {
-            Button(
-                modifier = Modifier
-                    .height(120.dp)
-                    .width(230.dp)
-                    .padding(30.dp),
-                colors = ButtonDefaults.outlinedButtonColors(
-                    backgroundColor = Color.White
-                ),
-                onClick = {
-                    Firebase.auth.signOut()
-                    startActivity(intent)
-                },
-                shape = RoundedCornerShape(30), // = 30% percent
+            Card(
+                shape = RoundedCornerShape(14.dp),
+                elevation = 10.dp,
+                backgroundColor = Color.White,
+                modifier = Modifier.padding(10.dp).width(290.dp)
             ) {
-                Text(
-                    text = "Выйти из учётной записи",
-                    textAlign = TextAlign.Center,
-                    color = Color.Black,
-                    fontSize = 17.sp,
-                    fontFamily = montserrat_bold
-                )
+                Column(
+                    modifier = Modifier.fillMaxWidth().padding(10.dp),
+                ) {
+                    Row(modifier = Modifier) {
+                        Column(modifier = Modifier.weight(1f)) {
+                            Text(
+                                text = "Выйти из MyPass",
+                                color = RedPass,
+                                fontFamily = montserrat_bold,
+                                fontSize = 15.sp
+                            )
+                        }
+                        IconButton(
+                            onClick = {
+                                Firebase.auth.signOut()
+                                startActivity(intent)
+                            },
+                            modifier = Modifier.background(
+                                color = RedPass,
+                                shape = RoundedCornerShape(10.dp)
+                            )
+                        ) {
+                            Icon(FeatherIcons.LogOut, tint = Color.White,  contentDescription = null)
+                        }
+                    }
+                }
+            }
+        }
+        Column(
+            //verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier.fillMaxSize().padding(top = 500.dp)
+        ) {
+            Card(
+                shape = RoundedCornerShape(14.dp),
+                elevation = 10.dp,
+                backgroundColor = Color.White,
+                modifier = Modifier.padding(10.dp).width(290.dp)
+            ) {
+                Column(
+                    modifier = Modifier.fillMaxWidth().padding(10.dp),
+                ) {
+                    Row(modifier = Modifier) {
+                        Column(modifier = Modifier.weight(1f)) {
+                            Text(
+                                text = "ВВГУ 2022",
+                                color = blue69,
+                                fontFamily = montserrat_bold,
+                                fontSize = 15.sp
+                            )
+                            Text(
+                                text = "      ",
+                                color = black,
+                                fontFamily = montserrat_light,
+                                fontSize = 13.sp
+                            )
+                            Text(
+                                text = "По всем вопросам Вы можете обратиться в тех.поддержку:",
+                                color = black,
+                                fontFamily = montserrat_light,
+                                fontSize = 13.sp
+                            )
+                            Text(
+                                fontFamily = montserrat_light,
+                                fontSize = 13.sp,
+                                text = buildAnnotatedString {
+                                    append("ауд. ")
+
+                                    pushStyle(style = SpanStyle(color = black, fontFamily = montserrat_bold))
+                                    append("1600, ")
+                                    pop()
+
+                                    append("тел ")
+
+                                    pushStyle(style = SpanStyle(color = black, fontFamily = montserrat_bold))
+                                    append("8 (423) 240-40-14")
+                                    pop()
+                                },
+                            )
+                        }
+                    }
+                }
             }
         }
     }
 
     @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
     @Composable
-    private fun NavigationController(userName: String, userSurname: String, userPatronymic: String, userPhoto: String) {
+    private fun NavigationController() {
 
         val navController = rememberNavController()
+
+        var userName by rememberSaveable { mutableStateOf("") }
+        var userSurname by rememberSaveable { mutableStateOf("") }
+        var userPatronymic by rememberSaveable { mutableStateOf("") }
+        var userPhoto by rememberSaveable { mutableStateOf("") }
+        var userSpecialty by rememberSaveable { mutableStateOf("") }
+        var userCourse by rememberSaveable { mutableStateOf("") }
+        var userDegree by rememberSaveable { mutableStateOf("") }
+        var userDepartment by rememberSaveable { mutableStateOf("") }
+
+        uidRef.get().addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                val snapshot = task.result
+                userName = snapshot?.child("name")?.getValue(String::class.java)!!
+                userSurname = snapshot.child("surname").getValue(String::class.java)!!
+                userPatronymic = snapshot.child("patronymic").getValue(String::class.java)!!
+                userPhoto = snapshot.child("photo_url").getValue(String::class.java)!!
+                userSpecialty = snapshot.child("specialty").getValue(String::class.java)!!
+                userCourse = snapshot.child("course").getValue(String::class.java)!!
+                userDegree = snapshot.child("degree").getValue(String::class.java)!!
+                userDepartment = snapshot.child("department").getValue(String::class.java)!!
+            }
+        }
 
         Scaffold(
             bottomBar = {
@@ -335,7 +657,11 @@ class MainActivity : ComponentActivity() {
                 userName = userName,
                 userSurname = userSurname,
                 userPatronymic = userPatronymic,
-                userPhoto = userPhoto
+                userPhoto = userPhoto,
+                userSpecialty = userSpecialty,
+                userCourse = userCourse,
+                userDegree = userDegree,
+                userDepartment = userDepartment
             )
         }
     }
@@ -347,11 +673,15 @@ class MainActivity : ComponentActivity() {
         userName: String,
         userSurname: String,
         userPatronymic: String,
-        userPhoto: String
+        userPhoto: String,
+        userSpecialty: String,
+        userCourse: String,
+        userDegree: String,
+        userDepartment: String
     ) {
         NavHost(navController = navController, startDestination = ROUTE_HOME) {
             composable(ROUTE_HOME) {
-                Home(userName, userSurname, userPatronymic, userPhoto)
+                Home(userName, userSurname, userPatronymic, userPhoto, userSpecialty, userCourse, userDegree, userDepartment)
             }
             composable(ROUTE_CUSTOMIZATION) {
                 Customization()

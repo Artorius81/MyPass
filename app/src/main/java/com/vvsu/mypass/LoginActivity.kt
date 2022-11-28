@@ -67,7 +67,6 @@ class LoginActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             MyPassTheme {
-
                 val user = FirebaseAuth.getInstance().currentUser
                 if (user != null) {
                     // User is signed in
@@ -531,7 +530,7 @@ class LoginActivity : ComponentActivity() {
 
     }
 
-    fun Context.isConnectedToNetwork(): Boolean {
+    private fun Context.isConnectedToNetwork(): Boolean {
         val connectivityManager = this.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager?
         return connectivityManager?.activeNetworkInfo?.isConnectedOrConnecting ?: false
     }

@@ -47,15 +47,11 @@ class WelcomeActivity : ComponentActivity() {
                 initFirebase()
 
                 var userName by rememberSaveable { mutableStateOf("") }
-                var userSurname by rememberSaveable { mutableStateOf("") }
-                var userPatronymic by rememberSaveable { mutableStateOf("") }
 
                 uidRef.get().addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         val snapshot = task.result
                         userName = snapshot?.child("name")?.getValue(String::class.java)!!
-                        userSurname = snapshot?.child("surname")?.getValue(String::class.java)!!
-                        userPatronymic = snapshot?.child("patronymic")?.getValue(String::class.java)!!
                     }
                 }
 
@@ -65,7 +61,7 @@ class WelcomeActivity : ComponentActivity() {
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
                     finish()
-                }, 1800)
+                }, 3000)
             }
         }
     }

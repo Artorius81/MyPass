@@ -12,7 +12,7 @@ import compose.icons.feathericons.Settings
 sealed class Screens(val route: String, var label: String, val icon: ImageVector) {
 
     object Home : Screens(ROUTE_HOME, "Пропуск", FeatherIcons.CreditCard)
-    object Customization : Screens(ROUTE_CUSTOMIZATION, "Изменить", FeatherIcons.Edit)
+    object Customization : Screens(ROUTE_CUSTOMIZATION, "Кастомизация", FeatherIcons.Edit)
     object Setting : Screens(ROUTE_SETTING, "Настройки", FeatherIcons.Settings)
 
     object Items {
