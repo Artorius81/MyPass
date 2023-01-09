@@ -41,6 +41,7 @@ import coil.compose.SubcomposeAsyncImage
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ktx.database
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestoreSettings
 import com.google.firebase.ktx.Firebase
@@ -67,18 +68,13 @@ class MainActivity : ComponentActivity() {
     private val uidRef = rootRef.child("users").child(uid)
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setPersistance()
         super.onCreate(savedInstanceState)
         setContent {
             MyPassTheme {
 
-                val db = FirebaseFirestore.getInstance()
-
-                val settings = firestoreSettings {
-                    isPersistenceEnabled = true
-                }
-                db.firestoreSettings = settings
-
                 NavigationController()
+
             }
         }
     }
@@ -374,50 +370,6 @@ class MainActivity : ComponentActivity() {
         Column(
             //verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.fillMaxSize().padding(top = 240.dp)
-        ) {
-            Card(
-                shape = RoundedCornerShape(14.dp),
-                elevation = 10.dp,
-                backgroundColor = Color.White,
-                modifier = Modifier.padding(10.dp).width(290.dp)
-            ) {
-                Column(
-                    modifier = Modifier.fillMaxWidth().padding(10.dp),
-                ) {
-                    Row(modifier = Modifier) {
-                        Column(modifier = Modifier.weight(1f)) {
-                            Text(
-                                text = "Сменить шрифт",
-                                color = black,
-                                fontFamily = montserrat_bold,
-                                fontSize = 15.sp
-                            )
-                            Text(
-                                text = "Загрузить шрифт со смартфона",
-                                color = black,
-                                fontFamily = montserrat_italic,
-                                fontSize = 10.sp
-                            )
-
-                        }
-                        IconButton(
-                            onClick = {},
-                            modifier = Modifier.background(
-                                color = blue69,
-                                shape = RoundedCornerShape(10.dp)
-                            )
-                        ) {
-                            Icon(FeatherIcons.PlusCircle, tint = Color.White,  contentDescription = null)
-                        }
-                    }
-                }
-            }
-        }
-
-        Column(
-            //verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.fillMaxSize().padding(top = 450.dp)
         ) {
             Card(
@@ -701,5 +653,16 @@ class MainActivity : ComponentActivity() {
             Toast.makeText(this, "Нажмите второй раз для выхода из приложения", Toast.LENGTH_LONG).show()
         }
         backPressedTime = System.currentTimeMillis()
+    }
+
+    private fun setPersistance() {
+
+        val db = FirebaseFirestore.getInstance()
+
+        val settings = firestoreSettings {
+            isPersistenceEnabled = true
+        }
+        db.firestoreSettings = settings
+
     }
 }
