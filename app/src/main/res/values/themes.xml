@@ -11,14 +11,6 @@
 
     </style>
 
-    <style name="splashScreenTheme" parent="android:Theme.Material.Light.NoActionBar">
-        <item name="android:windowBackground">@drawable/spl</item>
-        <item name="android:statusBarColor">@color/blue69</item>
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:navigationBarColor">@color/blue69</item>
-
-    </style>
-
     <style name="welcomeScreenTheme" parent="android:Theme.Material.Light.NoActionBar">
         <item name="android:statusBarColor">@color/blue69</item>
         <item name="android:background">@color/blue69</item>
