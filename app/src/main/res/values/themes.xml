@@ -6,7 +6,7 @@
         <item name="android:background">@color/blue69</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowDisablePreview">true</item>
-        <item name="android:navigationBarColor">@color/blue69</item>
+        <item name="android:navigationBarColor">@color/white</item>
         <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">true</item>
 
     </style>
@@ -21,7 +21,7 @@
     </style>
 
     <style name="mainTheme" parent="android:Theme.Material.Light.NoActionBar">
-        <item name="android:statusBarColor">#AE9F9F</item>
+        <item name="android:statusBarColor">#9F9F9F</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:navigationBarColor">@color/white</item>
 

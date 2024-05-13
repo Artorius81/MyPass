@@ -38,7 +38,20 @@ class LoginActivity : ComponentActivity() {
         }
         setContent {
             MyPassTheme {
+<<<<<<< HEAD
                 LoginScreen()
+=======
+
+                val user = FirebaseAuth.getInstance().currentUser
+                if (user != null) {
+                    // User is signed in
+                    val intent = Intent(this, MainActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    startActivity(intent)
+                } else {
+                    LoginScreen()
+                }
+>>>>>>> parent of b5ad695 (Improved version)
             }
         }
     }
@@ -84,4 +97,17 @@ class LoginActivity : ComponentActivity() {
         }
         backPressedTime = System.currentTimeMillis()
     }
+<<<<<<< HEAD
+=======
+
+    private fun updateUI() {
+
+    }
+
+    fun Context.isConnectedToNetwork(): Boolean {
+        val connectivityManager = this.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager?
+        return connectivityManager?.activeNetworkInfo?.isConnectedOrConnecting ?: false
+    }
+
+>>>>>>> parent of b5ad695 (Improved version)
 }
